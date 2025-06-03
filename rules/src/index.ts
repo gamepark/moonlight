@@ -1,3 +1,3 @@
-export { GameTemplateRules } from './GameTemplateRules'
-export { GameTemplateOptionsSpec } from './GameTemplateOptions'
-export { GameTemplateSetup } from './GameTemplateSetup'
+export { MoonlightRules } from './MoonlightRules'
+export { MoonlightOptionsSpec } from './MoonlightOptions'
+export { MoonlightSetup } from './MoonlightSetup'

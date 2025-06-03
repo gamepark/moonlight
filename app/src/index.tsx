@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { GameTemplateOptionsSpec } from '@gamepark/game-template/GameTemplateOptions'
-import { GameTemplateRules } from '@gamepark/game-template/GameTemplateRules'
-import { GameTemplateSetup } from '@gamepark/game-template/GameTemplateSetup'
+import { MoonlightOptionsSpec } from '@gamepark/moonlight/MoonlightOptions'
+import { MoonlightRules } from '@gamepark/moonlight/MoonlightRules'
+import { MoonlightSetup } from '@gamepark/moonlight/MoonlightSetup'
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
@@ -16,10 +16,10 @@ setupTranslation(translations, { debug: false })
 ReactDOM.render(
   <StrictMode>
     <GameProvider
-      game="game-template"
-      Rules={GameTemplateRules}
-      optionsSpec={GameTemplateOptionsSpec}
-      GameSetup={GameTemplateSetup}
+      game="moonlight"
+      Rules={MoonlightRules}
+      optionsSpec={MoonlightOptionsSpec}
+      GameSetup={MoonlightSetup}
       material={Material}
       locators={Locators}
       animations={gameAnimations}
