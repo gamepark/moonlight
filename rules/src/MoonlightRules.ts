@@ -1,20 +1,45 @@
-import { MaterialGame, MaterialMove, MaterialRules, TimeLimit } from '@gamepark/rules-api'
+import { hideFront, MaterialGame, MaterialMove, SecretMaterialRules, PositiveSequenceStrategy, TimeLimit, hideItemId } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
-import { TheFirstStepRule } from './rules/TheFirstStepRule'
+import { DrawCardRule } from './rules/DrawCardRule'
 import { RuleId } from './rules/RuleId'
+import { PlaceCardRule } from './rules/PlaceCardRule'
+import { EndOfTurnRule } from './rules/EndOfTurnRule'
 
 /**
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
 export class MoonlightRules
-  extends MaterialRules<PlayerColor, MaterialType, LocationType>
+  extends SecretMaterialRules<PlayerColor, MaterialType, LocationType>
   implements TimeLimit<MaterialGame<PlayerColor, MaterialType, LocationType>, MaterialMove<PlayerColor, MaterialType, LocationType>, PlayerColor>
 {
   rules = {
-    [RuleId.TheFirstStep]: TheFirstStepRule
+    [RuleId.DrawCard]: DrawCardRule,
+    [RuleId.PlaceCard]: PlaceCardRule,
+    [RuleId.EndOfTurn]: EndOfTurnRule
+  }
+
+  locationsStrategies = {
+    [MaterialType.WolfCard]: {
+      [LocationType.WolfDeck]: new PositiveSequenceStrategy(),
+      [LocationType.LoneWolfDeck]: new PositiveSequenceStrategy(),
+      [LocationType.PlayerHand]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.AlphaPowerCard]: {
+      [LocationType.AlphaPowerDeck]: new PositiveSequenceStrategy(),
+      [LocationType.AlphaPowerArea]: new PositiveSequenceStrategy()
+    }
+  }
+
+  hidingStrategies = {
+    [MaterialType.WolfCard]: {
+      [LocationType.WolfDeck]: hideFront
+    },
+    [MaterialType.AlphaPowerCard]: {
+      [LocationType.AlphaPowerDeck]: hideItemId
+    }
   }
 
   giveTime(): number {

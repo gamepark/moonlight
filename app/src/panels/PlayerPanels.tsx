@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerColor } from '@gamepark/moonlight/PlayerColor'
+
 import { StyledPlayerPanel, usePlayers } from '@gamepark/react-game'
 import { createPortal } from 'react-dom'
+import MountainBottomDark from '../images/tokens/MountainBottomDark.png'
+import MountainBottomLight from '../images/tokens/MountainBottomLight.png'
+import { PlayerColor } from '@gamepark/moonlight/PlayerColor'
 
 export const PlayerPanels = () => {
-  const players = usePlayers<PlayerColor>({ sortFromMe: true })
+  const players = usePlayers({ sortFromMe: true })
   const root = document.getElementById('root')
   if (!root) {
     return null
@@ -13,17 +16,30 @@ export const PlayerPanels = () => {
 
   return createPortal(
     <>
-      {players.map((player, index) => (
-        <StyledPlayerPanel key={player.id} player={player} css={panelPosition(index)} activeRing />
-      ))}
+      {players.map((player, index) => {
+        return (
+          <StyledPlayerPanel
+            key={player.id}
+            backgroundImage={player.id === PlayerColor.Light ? MountainBottomLight : MountainBottomDark}
+            player={player}
+            css={[panelPosition, index === 0 ? leftPlayer : rightPlayer]}
+          />
+        )
+      })}
     </>,
     root
   )
 }
-
-const panelPosition = (index: number) => css`
+const panelPosition = css`
   position: absolute;
-  right: 1em;
-  top: ${8.5 + index * 16}em;
-  width: 28em;
+  top: ${8.5}em;
+  width: 27em;
+`
+
+const leftPlayer = css`
+  left: 2em;
+`
+
+const rightPlayer = css`
+  right: 2em;
 `

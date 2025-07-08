@@ -1,4 +1,10 @@
 export enum LocationType {
-  WolfCardsPile = 1,
-  PlayerHand
+  WolfDeck = 1,
+  LoneWolfDeck,
+  PlayerHand,
+  PlayerAidArea,
+  PlayArea,
+  AlphaPowerArea,
+  AlphaPowerDeck,
+  MountainArea
 }

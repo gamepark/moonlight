@@ -1,7 +1,7 @@
 import { getEnumValues } from '@gamepark/rules-api'
 import { PlayerColor } from '../PlayerColor'
 
-export enum Wolf {
+export enum WolfCard {
   LightWolf1 = 101,
   LightWolf2 = 102,
   LightWolf3 = 103,
@@ -31,18 +31,20 @@ export enum Wolf {
 }
 
 // Wolves with a value of 3 comes in 2 copies each
-export const getWolves = () => getEnumValues(Wolf).concat(getEnumValues(Wolf).filter((wolf) => wolfValue(wolf) === 3))
+export const getWolves = () => getEnumValues(WolfCard).concat(getEnumValues(WolfCard).filter((wolf) => wolfValue(wolf) === 3))
+export const lightWolfCards = getEnumValues(WolfCard).filter((card) => card < WolfCard.DarkWolf1)
+export const darkWolfCards = getEnumValues(WolfCard).filter((card) => card >= WolfCard.DarkWolf1)
 
 export enum WolfEffect {
   CornerTriplesValue = 1,
   BonusPoint
 }
 
-export const wolfColor = (wolf: Wolf): PlayerColor => Math.floor(wolf / 100)
-export const wolfValue = (wolf: Wolf) => wolf % 10
-export const isLoneWolf = (wolf: Wolf) => wolf % 100 > 20
+export const wolfColor = (wolf: WolfCard): PlayerColor => Math.floor(wolf / 100)
+export const wolfValue = (wolf: WolfCard) => wolf % 10
+export const isLoneWolf = (wolf: WolfCard) => wolf % 100 > 20
 
-export const wolfMoons = (wolf: Wolf) => {
+export const wolfMoons = (wolf: WolfCard) => {
   if (isLoneWolf(wolf)) {
     switch (wolfValue(wolf)) {
       case 1:
@@ -57,7 +59,7 @@ export const wolfMoons = (wolf: Wolf) => {
   }
 }
 
-export const wolfEffect = (wolf: Wolf) => {
+export const wolfEffect = (wolf: WolfCard) => {
   switch (wolf % 100) {
     case 1:
     case 21:
