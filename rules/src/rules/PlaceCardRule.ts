@@ -1,5 +1,4 @@
 import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
@@ -21,10 +20,41 @@ export class PlaceCardRule extends PlayerTurnRule {
 
     const playArea = this.playArea
     return spaces.filter((space) => {
-      const countOnLine = playArea.filter((item) => item.location.y === space.y).length
-      const countOnColumn = playArea.filter((item) => item.location.x === space.x).length
-      if (countOnLine === 4 || countOnColumn === 4) return true
-      return spaces.some((s2) => isEqual(s2, space))
+      const rowsMap = new Map<number, number>()
+      const colsMap = new Map<number, number>()
+
+      for (const item of playArea) {
+        const { x, y } = item.location
+
+        if (x !== undefined) {
+          colsMap.set(x, (colsMap.get(x) ?? 0) + 1)
+        }
+
+        if (y !== undefined) {
+          rowsMap.set(y, (rowsMap.get(y) ?? 0) + 1)
+        }
+      }
+
+      const fullRowExists = [...rowsMap.values()].some((count) => count === 4)
+      const fullColExists = [...colsMap.values()].some((count) => count === 4)
+
+      const rowCount = rowsMap.size
+      const colCount = colsMap.size
+
+      const tooManyCols = fullRowExists || rowCount >= 4
+      const tooManyRows = fullColExists || colCount >= 4
+
+      const { x: sx, y: sy } = space
+
+      if (tooManyCols && sx !== undefined && !colsMap.has(sx) && colCount >= 3) {
+        return false
+      }
+
+      if (tooManyRows && sy !== undefined && !rowsMap.has(sy) && rowCount >= 3) {
+        return false
+      }
+
+      return true
     })
   }
 

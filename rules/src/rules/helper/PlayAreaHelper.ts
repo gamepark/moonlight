@@ -17,9 +17,18 @@ export class PlayAreaHelper extends MaterialRulesPart {
     if (playedCards.length === 0) {
       availableSpaces.push({ type: LocationType.PlayArea, x: 0, y: 0, z: 0 })
     }
+    const maxZMap = new Map<string, { maxZ: number; opponentCard: boolean }>()
 
     playedCards.forEach((playedCard) => {
-      const coordinates = { x: playedCard.location.x, y: playedCard.location.y }
+      const coordinates = { x: playedCard.location.x, y: playedCard.location.y, z: playedCard.location.z }
+      const key = `${coordinates.x},${coordinates.y}`
+      const currentMaxZ = maxZMap.get(key)
+
+      if (currentMaxZ === undefined || (coordinates.z ?? 0) > currentMaxZ.maxZ) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        maxZMap.set(key, { maxZ: coordinates.z ?? 0, opponentCard: playedCard.id.back != this.game.rule?.player })
+      }
+
       const left = { x: playedCard.location.x! - 1, y: playedCard.location.y! }
       if (!playedCards.find((item) => isAnyCardToTheLeft(item, coordinates)) && boundaries.xMax - left.x < maxSize) {
         if (boundaries.yMax - boundaries.yMin < maxSize) {
@@ -56,6 +65,19 @@ export class PlayAreaHelper extends MaterialRulesPart {
         }
       }
     })
+
+    const ownEntries = [...maxZMap.entries()].filter(([, value]) => !value.opponentCard)
+
+    for (const [key] of ownEntries) {
+      maxZMap.delete(key)
+    }
+
+    if (maxZMap.size > 1) {
+      maxZMap.forEach((value, key) => {
+        const [x, y] = key.split(',').map(Number)
+        availableSpaces.push({ type: LocationType.PlayArea, x, y, z: value.maxZ + 1 })
+      })
+    }
 
     return uniqBy(availableSpaces, (location) => JSON.stringify(location))
   }

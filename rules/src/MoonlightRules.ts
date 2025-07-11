@@ -1,4 +1,13 @@
-import { hideFront, MaterialGame, MaterialMove, SecretMaterialRules, PositiveSequenceStrategy, TimeLimit, hideItemId } from '@gamepark/rules-api'
+import {
+  hideFront,
+  MaterialGame,
+  MaterialMove,
+  SecretMaterialRules,
+  PositiveSequenceStrategy,
+  TimeLimit,
+  hideItemId,
+  StackingStrategy
+} from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
@@ -25,7 +34,8 @@ export class MoonlightRules
     [MaterialType.WolfCard]: {
       [LocationType.WolfDeck]: new PositiveSequenceStrategy(),
       [LocationType.LoneWolfDeck]: new PositiveSequenceStrategy(),
-      [LocationType.PlayerHand]: new PositiveSequenceStrategy()
+      [LocationType.PlayerHand]: new PositiveSequenceStrategy(),
+      [LocationType.PlayArea]: new StackingStrategy()
     },
     [MaterialType.AlphaPowerCard]: {
       [LocationType.AlphaPowerDeck]: new PositiveSequenceStrategy(),
