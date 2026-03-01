@@ -1,6 +1,7 @@
 import { PlayerColor } from '@gamepark/moonlight/PlayerColor'
 import { CardDescription } from '@gamepark/react-game'
 import { WolfCard } from '@gamepark/moonlight/material/WolfCard'
+import { WolfCardHelp } from './help/WolfCardHelp'
 import WolfDarkBack from '../images/wolf/dark/WolfDarkBack.jpg'
 import WolfLightBack from '../images/wolf/light/WolfLightBack.jpg'
 import WolfLight1 from '../images/wolf/light/WolfLight1.jpg'
@@ -31,6 +32,9 @@ import LoneWolfDark4 from '../images/wolf/dark/LoneWolfDark4.jpg'
 import LoneWolfDark6 from '../images/wolf/dark/LoneWolfDark6.jpg'
 
 class WolfCardDescription extends CardDescription {
+  help = WolfCardHelp
+
+
   backImages = {
     [PlayerColor.Dark]: WolfDarkBack,
     [PlayerColor.Light]: WolfLightBack
