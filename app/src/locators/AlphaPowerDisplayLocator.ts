@@ -18,7 +18,7 @@ class AlphaPowerDisplayLocator extends ListLocator {
     return coordinates
   }
 
-  getHoverTransform = () => ['translateZ(10em)', 'scale(2)']
+  getHoverTransform = () => ['translateZ(10em)', 'translateY(25%)', 'scale(2)']
 }
 
 export const alphaPowerDisplayLocator = new AlphaPowerDisplayLocator()

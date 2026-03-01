@@ -11,5 +11,7 @@ export class PlayAreaDescription extends DropAreaDescription {
     background-color: rgba(255, 255, 255, 0.4);
   `
 
-  placeOnShortClick = true
+  // Disable highlight and click to avoid revealing playable positions
+  canShortClick() { return false }
+  canLongClick() { return false }
 }

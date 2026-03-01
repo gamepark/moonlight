@@ -4,11 +4,15 @@ import { PlayerColor } from '@gamepark/moonlight/PlayerColor'
 import { Locator } from '@gamepark/react-game'
 import { alphaPowerDeckLocator } from './AlphaPowerDeckLocator'
 import { alphaPowerDisplayLocator } from './AlphaPowerDisplayLocator'
+import { mountainAreaLocator } from './MountainAreaLocator'
+import { playerMountainLocator } from './PlayerMountainLocator'
 import { playerAidLocator } from './PlayerAidLocator'
+import { playerAlphaPowerLocator } from './PlayerAlphaPowerLocator'
 import { wolfDeckLocator } from './WolfDeckLocator'
 import { loneWolfDeckLocator } from './LoneWolfDeckLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { playAreaLocator } from './PlayAreaLocator'
+import { wonCardsLocator } from './WonCardsLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.WolfDeck]: wolfDeckLocator,
@@ -17,5 +21,9 @@ export const Locators: Partial<Record<LocationType, Locator<PlayerColor, Materia
   [LocationType.PlayerAidArea]: playerAidLocator,
   [LocationType.AlphaPowerArea]: alphaPowerDisplayLocator,
   [LocationType.AlphaPowerDeck]: alphaPowerDeckLocator,
-  [LocationType.PlayArea]: playAreaLocator
+  [LocationType.PlayArea]: playAreaLocator,
+  [LocationType.MountainArea]: mountainAreaLocator,
+  [LocationType.PlayerAlphaPower]: playerAlphaPowerLocator,
+  [LocationType.PlayerMountain]: playerMountainLocator,
+  [LocationType.WonCards]: wonCardsLocator
 }

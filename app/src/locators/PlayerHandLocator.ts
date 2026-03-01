@@ -1,14 +1,18 @@
+import { LocationType } from '@gamepark/moonlight/material/LocationType'
+import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
 import { HandLocator, MaterialContext } from '@gamepark/react-game'
-import { Location } from '@gamepark/rules-api'
-import { wolfCardDescription } from '../material/WolfCardDescription'
-import { wolfDeckLocator } from './WolfDeckLocator'
+import { Location, MaterialRules } from '@gamepark/rules-api'
 
 class PlayerHandLocator extends HandLocator {
   getCoordinates(location: Location, context: MaterialContext) {
-    const coordinates = wolfDeckLocator.getCoordinates(location, context)
-    coordinates.x += wolfCardDescription.width / 2 + 0.5
-    coordinates.y += wolfCardDescription.height + 2
-    return coordinates
+    const { rules, player } = context
+    const hasWonCards = (rules as MaterialRules).material(MaterialType.WolfCard)
+      .location(LocationType.WonCards).player(location.player).length > 0
+    const y = hasWonCards ? 21 : 14
+    if (location.player === (player ?? rules.players[0])) {
+      return { x: -30, y, z: 0 }
+    }
+    return { x: 30, y, z: 0 }
   }
 }
 

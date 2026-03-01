@@ -1,28 +1,66 @@
+import { LocationType } from '@gamepark/moonlight/material/LocationType'
+import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
+import { AlphaPowerHelper } from '@gamepark/moonlight/rules/helper/AlphaPowerHelper'
 import { PlayAreaHelper } from '@gamepark/moonlight/rules/helper/PlayAreaHelper'
 import { PlaceCardRule } from '@gamepark/moonlight/rules/PlaceCardRule'
+import { Memory } from '@gamepark/moonlight/rules/Memory'
 import { RuleId } from '@gamepark/moonlight/rules/RuleId'
+import { wolfValue } from '@gamepark/moonlight/material/WolfCard'
 import { Locator, MaterialContext } from '@gamepark/react-game'
-import { Location } from '@gamepark/rules-api'
+import { Location, MaterialRules } from '@gamepark/rules-api'
 import { wolfCardDescription } from '../material/WolfCardDescription'
 import { PlayAreaDescription } from './description/PlayAreaDescription'
 
 class PlayAreaLocator extends Locator {
   getLocations(context: MaterialContext) {
     const { rules, player } = context
-    if (rules.game.rule?.id === RuleId.PlaceCard && rules.game.rule.player === player) {
-      return new PlaceCardRule(rules.game).availableSpaces
+    const ruleId = rules.game.rule?.id
+    if (rules.game.rule?.player !== player) return super.getLocations(context)
+
+    const isPlacement = ruleId === RuleId.PlaceCard || ruleId === RuleId.PlaceSecondCard
+    const isMovePilePlace = ruleId === RuleId.MovePile
+      && (rules as MaterialRules).remind(Memory.MovePilePhase) === 'place'
+
+    if (isPlacement || isMovePilePlace) {
+      const helper = new PlayAreaHelper(rules.game)
+      const topCards = helper.getTopCards()
+      const powers = new AlphaPowerHelper(rules.game, player!)
+
+      let spaces: Location[]
+      let handItems
+
+      if (isMovePilePlace) {
+        spaces = helper.availableSpaces()
+        handItems = (rules as MaterialRules).material(MaterialType.WolfCard)
+          .location(LocationType.PlayerHand).player(player!)
+          .filter(item => wolfValue((item.id as { front: number })?.front) === 2)
+          .getItems()
+      } else {
+        const rule = new PlaceCardRule(rules.game)
+        spaces = rule.availableSpaces
+        handItems = rule.hand.getItems()
+      }
+
+      // Only show ground-level drop areas (z=0) to avoid revealing stacking targets
+      // Stacking drop areas appear automatically during drag from legal moves
+      return spaces.filter(space => (space.z ?? 0) === 0)
     }
     return super.getLocations(context)
   }
 
   getCoordinates(location: Location, _context: MaterialContext) {
-    const boundaries = new PlayAreaHelper(_context.rules.game).outerSquareBoundaries
-    const { x, y } = { x: 0, y: 0 }
-    const computedX = location.x! - (boundaries.xMin + boundaries.xMax) / 2
-    const computedY = location.y! - (boundaries.yMin + boundaries.yMax) / 2
+    const helper = new PlayAreaHelper(_context.rules.game)
+    const boundaries = helper.outerSquareBoundaries
+
+    const cellW = wolfCardDescription.width + 0.5
+    const cellH = wolfCardDescription.height + 0.5
+
+    const centerX = (boundaries.xMin + boundaries.xMax) / 2
+    const centerY = (boundaries.yMin + boundaries.yMax) / 2
+
     return {
-      x: x + computedX * (wolfCardDescription.width + 0.5),
-      y: y + computedY * (wolfCardDescription.height + 0.5),
+      x: (location.x! - centerX) * cellW,
+      y: (location.y! - centerY) * cellH,
       z: (location.z ?? 0) * 0.5
     }
   }
