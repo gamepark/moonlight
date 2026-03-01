@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moonlight — Journal Panel Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal-abyss: #0a1e1e;
+    --teal-deep: #122c2c;
+    --teal: #1a4040;
+    --teal-light: #1f4f4f;
+    --teal-mid: #255555;
+    --gold: #c89828;
+    --gold-light: #d4ac40;
+    --gold-pale: #e8d890;
+    --cream: #e0dcc0;
+    --cream-dim: #a09878;
+    --cream-dark: #887850;
+
+    --light-accent: #b8a060;
+    --light-bg: rgba(184, 160, 96, 0.12);
+    --light-name: #c8b060;
+    --dark-accent: #4a9a8a;
+    --dark-bg: rgba(74, 154, 138, 0.12);
+    --dark-name: #60c0b0;
+  }
+
+  body {
+    font-family: 'Raleway', sans-serif;
+    background: var(--teal-abyss);
+    color: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* ── Page header ── */
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    text-align: center;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.08em;
+  }
+  .page-subtitle {
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Concepts container ── */
+  .concepts {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .concept {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .concept-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+  .concept-desc {
+    font-size: 0.72rem;
+    color: var(--cream-dim);
+    max-width: 340px;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ══════════════════════════════════════════════════════
+     CONCEPT A — "Moonlit Parchment"
+     ══════════════════════════════════════════════════════ */
+
+  .panel-a {
+    width: 360px;
+    height: 780px;
+    background:
+      url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='60' height='60' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E") repeat,
+      linear-gradient(178deg, #142e2e 0%, var(--teal-deep) 35%, #0f2424 100%);
+    border-radius: 0.8rem;
+    border: 1px solid rgba(200, 152, 40, 0.12);
+    box-shadow:
+      0 0 0 1px var(--teal-light),
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(200, 152, 40, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Float button A */
+  .float-btn-a {
+    position: absolute;
+    top: -48px;
+    left: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, var(--teal), var(--teal-deep));
+    border: 1.5px solid rgba(200, 152, 40, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    transition: all 0.2s ease;
+  }
+  .float-btn-a:hover {
+    transform: scale(1.08);
+    border-color: rgba(200, 152, 40, 0.5);
+    box-shadow: 0 3px 12px rgba(200, 152, 40, 0.15);
+  }
+
+  /* Tabs A */
+  .tabs-a {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.7rem 0.8rem 0.5rem;
+    border-bottom: 1px solid rgba(200, 152, 40, 0.08);
+  }
+  .tab-a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--cream-dim);
+    background: transparent;
+  }
+  .tab-a.active {
+    background: rgba(200, 152, 40, 0.12);
+    border-color: rgba(200, 152, 40, 0.25);
+    color: var(--gold-light);
+  }
+  .tab-a:not(.active):hover {
+    background: rgba(200, 152, 40, 0.06);
+    color: var(--cream);
+  }
+
+  /* Scroll area A */
+  .scroll-a {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem 0.6rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(200, 152, 40, 0.15) transparent;
+  }
+  .scroll-a::-webkit-scrollbar { width: 5px; }
+  .scroll-a::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: rgba(200, 152, 40, 0.18);
+  }
+
+  /* Entry A — base (via historyEntry) */
+  .entry-a {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 0.65rem 0.4rem 0;
+    margin-bottom: 0.2rem;
+    border-radius: 0 0.35rem 0.35rem 0;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    position: relative;
+    border-left: 3px solid transparent;
+    transition: background 0.15s ease;
+    animation: entrySlideA 0.3s ease both;
+  }
+  @keyframes entrySlideA {
+    from { opacity: 0; transform: translateX(-6px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .entry-a:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  /* Player-specific left border glow */
+  .entry-a.light {
+    border-left-color: var(--light-accent);
+    background: var(--light-bg);
+  }
+  .entry-a.light::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 20%;
+    bottom: 20%;
+    width: 3px;
+    background: var(--light-accent);
+    box-shadow: 0 0 6px rgba(184, 160, 96, 0.4);
+    border-radius: 0 1px 1px 0;
+  }
+
+  .entry-a.dark {
+    border-left-color: var(--dark-accent);
+    background: var(--dark-bg);
+  }
+  .entry-a.dark::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 20%;
+    bottom: 20%;
+    width: 3px;
+    background: var(--dark-accent);
+    box-shadow: 0 0 6px rgba(74, 154, 138, 0.4);
+    border-radius: 0 1px 1px 0;
+  }
+
+  /* Avatar A */
+  .avatar-a {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  .avatar-a.light {
+    background: linear-gradient(135deg, rgba(184, 160, 96, 0.25), rgba(184, 160, 96, 0.1));
+    border: 1px solid rgba(184, 160, 96, 0.3);
+    color: var(--light-name);
+  }
+  .avatar-a.dark {
+    background: linear-gradient(135deg, rgba(74, 154, 138, 0.25), rgba(74, 154, 138, 0.1));
+    border: 1px solid rgba(74, 154, 138, 0.3);
+    color: var(--dark-name);
+  }
+
+  /* Name A */
+  .name-a { font-weight: 700; }
+  .name-a.light { color: var(--light-name); }
+  .name-a.dark { color: var(--dark-name); }
+
+  /* Text A */
+  .txt-a { color: var(--cream-dim); }
+
+  /* Value badge A — illuminated circle */
+  .badge-a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    font-size: 0.62rem;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: middle;
+    margin: 0 0.12rem;
+    position: relative;
+    top: -0.5px;
+  }
+  .badge-a.light {
+    background: rgba(184, 160, 96, 0.15);
+    color: var(--light-accent);
+    border: 1.5px solid rgba(184, 160, 96, 0.4);
+    box-shadow: 0 0 5px rgba(184, 160, 96, 0.15);
+  }
+  .badge-a.dark {
+    background: rgba(74, 154, 138, 0.15);
+    color: var(--dark-accent);
+    border: 1.5px solid rgba(74, 154, 138, 0.4);
+    box-shadow: 0 0 5px rgba(74, 154, 138, 0.15);
+  }
+
+  /* Icons A */
+  .icon-a { font-size: 0.78rem; margin-right: 0.12rem; }
+  .icon-a.gold { color: var(--gold-light); }
+  .icon-a.bolt { color: #e0b840; }
+  .icon-a.sword { color: var(--gold-light); }
+
+  /* Power name A */
+  .power-a {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* ── Round separator A ── */
+  .sep-a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.7rem;
+    margin: 0.4rem 0;
+    border-radius: 0.35rem;
+    border-left: 3px solid var(--gold);
+    background: linear-gradient(90deg, rgba(200, 152, 40, 0.14) 0%, rgba(200, 152, 40, 0.03) 100%);
+    border-top: 1px solid rgba(200, 152, 40, 0.12);
+    border-bottom: 1px solid rgba(200, 152, 40, 0.12);
+    font-size: 0.72rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .sep-a::after {
+    content: '🐾';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.65rem;
+    opacity: 0.2;
+  }
+  .sep-a .round-label {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    font-size: 0.72rem;
+  }
+  .sep-a .dash { color: var(--cream-dim); }
+  .sep-a .winner-name { font-weight: 700; }
+  .sep-a .winner-name.light { color: var(--light-accent); }
+  .sep-a .winner-name.dark { color: var(--dark-accent); }
+  .sep-a .tie-label { font-weight: 600; font-style: italic; color: #8a8a7a; }
+
+  /* Details button A — moonstone frosted */
+  .details-btn-a {
+    margin-left: auto;
+    padding: 0.2rem 0.7rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    border-radius: 2rem;
+    border: 1px solid rgba(200, 152, 40, 0.25);
+    background: rgba(31, 79, 79, 0.6);
+    backdrop-filter: blur(4px);
+    color: var(--cream);
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    z-index: 1;
+  }
+  .details-btn-a:hover {
+    background: rgba(31, 79, 79, 0.85);
+    border-color: rgba(200, 152, 40, 0.4);
+    box-shadow: 0 0 8px rgba(200, 152, 40, 0.1);
+  }
+
+  /* ── Game over A ── */
+  .gameover-a {
+    background: linear-gradient(175deg, var(--teal) 0%, #163838 40%, var(--teal-deep) 100%);
+    border: 1px solid rgba(200, 152, 40, 0.18);
+    border-radius: 0.4rem;
+    padding: 0.6rem 0.7rem;
+    margin: 0.3rem 0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
+    color: var(--cream);
+    font-size: 0.72rem;
+  }
+  .gameover-a .go-winner {
+    text-align: center;
+    padding-bottom: 0.35rem;
+  }
+  .gameover-a .go-crown { color: var(--gold-light); font-size: 0.85rem; }
+  .gameover-a .go-name { font-weight: 700; font-size: 0.95rem; }
+  .gameover-a .go-name.light { color: #d4c480; }
+  .gameover-a .go-name.dark { color: #60c0b0; }
+  .gameover-a .go-pts {
+    font-size: 0.72rem;
+    color: #c0b890;
+    font-style: italic;
+  }
+  .gameover-a .go-divider {
+    border-top: 1px dashed rgba(200, 152, 40, 0.15);
+    margin-bottom: 0.3rem;
+  }
+  .gameover-a .go-row {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.08rem 0.15rem;
+  }
+  .gameover-a .go-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: 0.75;
+  }
+  .gameover-a .go-dot.light { background: var(--light-accent); }
+  .gameover-a .go-dot.dark { background: var(--dark-accent); }
+  .gameover-a .go-rname { flex: 1; font-weight: 600; }
+  .gameover-a .go-rname.light { color: #d4c480; }
+  .gameover-a .go-rname.dark { color: #60c0b0; }
+  .gameover-a .go-rscore { font-weight: 700; color: var(--gold-light); }
+
+  /* Chat bar A */
+  .chatbar-a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.7rem;
+    border-top: 1px solid rgba(200, 152, 40, 0.08);
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .chatbar-a input {
+    flex: 1;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(200, 152, 40, 0.15);
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .chatbar-a input::placeholder { color: var(--cream-dim); opacity: 0.5; }
+  .chatbar-a input:focus { border-color: rgba(200, 152, 40, 0.35); }
+  .chatbar-a .send-a {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 152, 40, 0.25);
+    background: rgba(200, 152, 40, 0.1);
+    color: var(--gold-light);
+    cursor: pointer;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .chatbar-a .send-a:hover {
+    background: rgba(200, 152, 40, 0.2);
+    border-color: rgba(200, 152, 40, 0.4);
+  }
+
+
+  /* ══════════════════════════════════════════════════════
+     CONCEPT B — "Forest Chronicle"
+     ══════════════════════════════════════════════════════ */
+
+  .panel-b {
+    width: 360px;
+    height: 780px;
+    background:
+      url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E") repeat,
+      linear-gradient(180deg, #0e2222 0%, #0d2020 50%, #091818 100%);
+    border-radius: 0.8rem;
+    border: 1px solid rgba(74, 154, 138, 0.1);
+    box-shadow:
+      0 0 0 1px rgba(20, 50, 50, 0.8),
+      0 8px 32px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Float button B — scroll */
+  .float-btn-b {
+    position: absolute;
+    top: -48px;
+    left: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #0e2222, #0a1818);
+    border: 1.5px solid rgba(74, 154, 138, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--cream-dim);
+    transition: all 0.2s ease;
+  }
+  .float-btn-b:hover {
+    transform: scale(1.08);
+    border-color: rgba(200, 152, 40, 0.3);
+    color: var(--gold-light);
+  }
+
+  /* Tabs B — underline style */
+  .tabs-b {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.7rem 1rem 0;
+    border-bottom: 1px solid rgba(74, 154, 138, 0.08);
+  }
+  .tab-b {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.35rem 0;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--cream-dim);
+    background: transparent;
+    margin-bottom: -1px;
+  }
+  .tab-b.active {
+    border-bottom-color: var(--gold);
+    color: var(--gold-light);
+  }
+  .tab-b:not(.active):hover {
+    color: var(--cream);
+    border-bottom-color: rgba(200, 152, 40, 0.2);
+  }
+
+  /* Scroll area B */
+  .scroll-b {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(74, 154, 138, 0.12) transparent;
+  }
+  .scroll-b::-webkit-scrollbar { width: 4px; }
+  .scroll-b::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: rgba(74, 154, 138, 0.15);
+  }
+
+  /* Entry B — etched slate tablet */
+  .entry-b {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.65rem;
+    margin-bottom: 0.25rem;
+    border-radius: 0.3rem;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    position: relative;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    animation: entrySlideB 0.35s ease both;
+  }
+  @keyframes entrySlideB {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .entry-b:hover {
+    border-color: rgba(255, 255, 255, 0.03);
+  }
+
+  /* Player gradient direction */
+  .entry-b.light {
+    background: linear-gradient(95deg, rgba(184, 160, 96, 0.1) 0%, transparent 70%);
+    border-left: 2px solid rgba(184, 160, 96, 0.35);
+  }
+  .entry-b.dark {
+    background: linear-gradient(95deg, rgba(74, 154, 138, 0.1) 0%, transparent 70%);
+    border-left: 2px solid rgba(74, 154, 138, 0.35);
+  }
+
+  /* Avatar B */
+  .avatar-b {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+  .avatar-b.light {
+    background: rgba(184, 160, 96, 0.12);
+    border: 1px solid rgba(184, 160, 96, 0.2);
+    color: var(--light-name);
+  }
+  .avatar-b.dark {
+    background: rgba(74, 154, 138, 0.12);
+    border: 1px solid rgba(74, 154, 138, 0.2);
+    color: var(--dark-name);
+  }
+
+  /* Name B */
+  .name-b { font-weight: 700; }
+  .name-b.light { color: var(--light-name); }
+  .name-b.dark { color: var(--dark-name); }
+
+  /* Text B */
+  .txt-b { color: rgba(160, 152, 120, 0.7); }
+
+  /* Value badge B — diamond/rhombus */
+  .badge-b {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    transform: rotate(45deg);
+    font-size: 0.58rem;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: middle;
+    margin: 0 0.2rem;
+    position: relative;
+    top: -0.5px;
+    border-radius: 2px;
+  }
+  .badge-b > span {
+    transform: rotate(-45deg);
+  }
+  .badge-b.light {
+    background: rgba(184, 160, 96, 0.12);
+    color: var(--light-accent);
+    border: 1.5px solid rgba(184, 160, 96, 0.3);
+  }
+  .badge-b.dark {
+    background: rgba(74, 154, 138, 0.12);
+    color: var(--dark-accent);
+    border: 1.5px solid rgba(74, 154, 138, 0.3);
+  }
+
+  /* Icons B */
+  .icon-b { font-size: 0.75rem; margin-right: 0.12rem; }
+  .icon-b.gold { color: var(--gold); opacity: 0.7; }
+  .icon-b.bolt { color: #d0a830; opacity: 0.8; }
+  .icon-b.sword { color: var(--gold); opacity: 0.7; }
+
+  /* Power name B */
+  .power-b {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 600;
+    opacity: 0.85;
+  }
+
+  /* ── Round separator B — vine branch ── */
+  .sep-b {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    margin: 0.35rem 0;
+    font-size: 0.72rem;
+    position: relative;
+  }
+  .sep-b::before,
+  .sep-b::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 152, 40, 0.2), transparent);
+  }
+  .sep-b .sep-center {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2rem;
+    background: rgba(200, 152, 40, 0.06);
+    border: 1px solid rgba(200, 152, 40, 0.12);
+  }
+  .sep-b .round-label {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    font-size: 0.65rem;
+  }
+  .sep-b .winner-name { font-weight: 600; font-size: 0.68rem; }
+  .sep-b .winner-name.light { color: var(--light-accent); }
+  .sep-b .winner-name.dark { color: var(--dark-accent); }
+  .sep-b .tie-label { font-weight: 600; font-style: italic; color: #6a6a5a; font-size: 0.68rem; }
+
+  /* Details button B — understated */
+  .details-btn-b {
+    padding: 0.15rem 0.55rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(74, 154, 138, 0.2);
+    background: rgba(74, 154, 138, 0.08);
+    color: var(--dark-accent);
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .details-btn-b:hover {
+    background: rgba(74, 154, 138, 0.15);
+    border-color: rgba(74, 154, 138, 0.35);
+  }
+
+  /* ── Game over B ── */
+  .gameover-b {
+    background:
+      linear-gradient(175deg, rgba(14, 34, 34, 0.9) 0%, rgba(10, 24, 24, 0.95) 100%);
+    border: 1px solid rgba(200, 152, 40, 0.1);
+    border-radius: 0.35rem;
+    padding: 0.55rem 0.65rem;
+    margin: 0.3rem 0;
+    font-size: 0.72rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .gameover-b::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(200, 152, 40, 0.01) 3px,
+        rgba(200, 152, 40, 0.01) 4px
+      );
+    pointer-events: none;
+  }
+  .gameover-b .go-winner { text-align: center; padding-bottom: 0.3rem; position: relative; }
+  .gameover-b .go-crown { color: var(--gold); font-size: 0.8rem; opacity: 0.8; }
+  .gameover-b .go-name { font-weight: 700; font-size: 0.9rem; }
+  .gameover-b .go-name.light { color: #d4c480; }
+  .gameover-b .go-name.dark { color: #60c0b0; }
+  .gameover-b .go-pts { font-size: 0.68rem; color: #a09878; font-style: italic; }
+  .gameover-b .go-divider {
+    border-top: 1px solid rgba(200, 152, 40, 0.08);
+    margin-bottom: 0.25rem;
+    position: relative;
+  }
+  .gameover-b .go-row {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.06rem 0.1rem;
+    position: relative;
+  }
+  .gameover-b .go-dot {
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 1px;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+  .gameover-b .go-dot.light { background: var(--light-accent); }
+  .gameover-b .go-dot.dark { background: var(--dark-accent); }
+  .gameover-b .go-rname { flex: 1; font-weight: 600; }
+  .gameover-b .go-rname.light { color: #d4c480; }
+  .gameover-b .go-rname.dark { color: #60c0b0; }
+  .gameover-b .go-rscore { font-weight: 700; color: var(--gold); }
+
+  /* Chat bar B */
+  .chatbar-b {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.6rem;
+    border-top: 1px solid rgba(74, 154, 138, 0.06);
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .chatbar-b input {
+    flex: 1;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(74, 154, 138, 0.12);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .chatbar-b input::placeholder { color: var(--cream-dim); opacity: 0.4; }
+  .chatbar-b input:focus { border-color: rgba(74, 154, 138, 0.3); }
+  .chatbar-b .send-b {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(74, 154, 138, 0.15);
+    background: rgba(74, 154, 138, 0.08);
+    color: var(--dark-accent);
+    cursor: pointer;
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .chatbar-b .send-b:hover {
+    background: rgba(74, 154, 138, 0.18);
+    border-color: rgba(74, 154, 138, 0.3);
+  }
+
+
+  /* ══════════════════════════════════════════════════════
+     THEME MAPPING ANNOTATIONS
+     ══════════════════════════════════════════════════════ */
+
+  .theme-map {
+    margin-top: 2rem;
+    max-width: 750px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(200, 152, 40, 0.1);
+    border-radius: 0.6rem;
+    padding: 1.5rem 2rem;
+  }
+  .theme-map h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  .theme-map table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.72rem;
+  }
+  .theme-map th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--gold);
+    padding: 0.3rem 0.5rem;
+    border-bottom: 1px solid rgba(200, 152, 40, 0.15);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .theme-map td {
+    padding: 0.25rem 0.5rem;
+    border-bottom: 1px solid rgba(200, 152, 40, 0.04);
+    color: var(--cream-dim);
+    vertical-align: top;
+  }
+  .theme-map td:first-child {
+    color: var(--cream);
+    font-weight: 500;
+    white-space: nowrap;
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+  }
+  .theme-map td:nth-child(2), .theme-map td:nth-child(3) {
+    font-size: 0.68rem;
+  }
+  .theme-map .color-swatch {
+    display: inline-block;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 2px;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* Staggered load animation */
+  .entry-a:nth-child(1) { animation-delay: 0.05s; }
+  .entry-a:nth-child(2) { animation-delay: 0.1s; }
+  .entry-a:nth-child(3) { animation-delay: 0.15s; }
+  .entry-a:nth-child(4) { animation-delay: 0.2s; }
+  .entry-a:nth-child(5) { animation-delay: 0.25s; }
+  .entry-a:nth-child(6) { animation-delay: 0.3s; }
+  .entry-a:nth-child(7) { animation-delay: 0.35s; }
+  .entry-a:nth-child(8) { animation-delay: 0.4s; }
+  .entry-a:nth-child(9) { animation-delay: 0.45s; }
+  .entry-a:nth-child(10) { animation-delay: 0.5s; }
+  .entry-a:nth-child(11) { animation-delay: 0.55s; }
+  .entry-a:nth-child(12) { animation-delay: 0.6s; }
+  .entry-a:nth-child(13) { animation-delay: 0.65s; }
+  .entry-a:nth-child(14) { animation-delay: 0.7s; }
+
+  .entry-b:nth-child(1) { animation-delay: 0.05s; }
+  .entry-b:nth-child(2) { animation-delay: 0.1s; }
+  .entry-b:nth-child(3) { animation-delay: 0.12s; }
+  .entry-b:nth-child(4) { animation-delay: 0.16s; }
+  .entry-b:nth-child(5) { animation-delay: 0.2s; }
+  .entry-b:nth-child(6) { animation-delay: 0.22s; }
+  .entry-b:nth-child(7) { animation-delay: 0.26s; }
+  .entry-b:nth-child(8) { animation-delay: 0.3s; }
+  .entry-b:nth-child(9) { animation-delay: 0.34s; }
+  .entry-b:nth-child(10) { animation-delay: 0.38s; }
+  .entry-b:nth-child(11) { animation-delay: 0.42s; }
+  .entry-b:nth-child(12) { animation-delay: 0.46s; }
+  .entry-b:nth-child(13) { animation-delay: 0.5s; }
+  .entry-b:nth-child(14) { animation-delay: 0.54s; }
+</style>
+</head>
+<body>
+
+<div class="page-title">Moonlight — Journal Panel Concepts</div>
+<div class="page-subtitle">Two design directions for the game log history panel using GameTheme customization</div>
+
+<div class="concepts">
+
+<!-- ══════════════════════════════════════════════════════
+     CONCEPT A — "Moonlit Parchment"
+     ══════════════════════════════════════════════════════ -->
+<div class="concept">
+  <div class="concept-label">A — Moonlit Parchment</div>
+  <div class="concept-desc">
+    Dark teal panel with frosted parchment texture. Glowing left-accent lines per player.
+    Pill-shaped tabs, moonstone frosted buttons. Illuminated value badges.
+  </div>
+
+  <div style="position: relative; padding-top: 52px;">
+    <div class="float-btn-a" title="Toggle journal">☽</div>
+    <div class="panel-a">
+      <div class="tabs-a">
+        <button class="tab-a">Chat</button>
+        <button class="tab-a active">History</button>
+      </div>
+
+      <div class="scroll-a">
+
+        <!-- Choose Alpha Power -->
+        <div class="entry-a light">
+          <div class="avatar-a light">L</div>
+          <span>
+            <span class="icon-a gold">★</span>
+            <span class="name-a light">Lumière</span>
+            <span class="txt-a"> chooses </span>
+            <span class="power-a">Double Placement</span>
+          </span>
+        </div>
+
+        <div class="entry-a dark">
+          <div class="avatar-a dark">O</div>
+          <span>
+            <span class="icon-a gold">★</span>
+            <span class="name-a dark">Ombre</span>
+            <span class="txt-a"> chooses </span>
+            <span class="power-a">Win All Ties</span>
+          </span>
+        </div>
+
+        <!-- Draw card -->
+        <div class="entry-a light">
+          <div class="avatar-a light">L</div>
+          <span>
+            <span class="name-a light">Lumière</span>
+            <span class="txt-a"> draws a card</span>
+          </span>
+        </div>
+
+        <!-- Place card with value -->
+        <div class="entry-a light">
+          <div class="avatar-a light">L</div>
+          <span>
+            <span class="name-a light">Lumière</span>
+            <span class="txt-a"> places a value </span>
+            <span class="badge-a light">2</span>
+            <span class="txt-a"> wolf</span>
+          </span>
+        </div>
+
+        <!-- Draw + place from other player -->
+        <div class="entry-a dark">
+          <div class="avatar-a dark">O</div>
+          <span>
+            <span class="name-a dark">Ombre</span>
+            <span class="txt-a"> draws a card</span>
+          </span>
+        </div>
+
+        <div class="entry-a dark">
+          <div class="avatar-a dark">O</div>
+          <span>
+            <span class="name-a dark">Ombre</span>
+            <span class="txt-a"> places a value </span>
+            <span class="badge-a dark">3</span>
+            <span class="txt-a"> wolf</span>
+          </span>
+        </div>
+
+        <!-- Cover/stack -->
+        <div class="entry-a light">
+          <div class="avatar-a light">L</div>
+          <span>
+            <span class="icon-a sword">⚔</span>
+            <span class="name-a light">Lumière</span>
+            <span class="txt-a"> covers a wolf with a value </span>
+            <span class="badge-a light">4</span>
+            <span class="txt-a"> wolf</span>
+          </span>
+        </div>
+
+        <!-- Power used -->
+        <div class="entry-a dark">
+          <div class="avatar-a dark">O</div>
+          <span>
+            <span class="name-a dark">Ombre</span>
+            <span class="icon-a bolt"> ⚡</span>
+            <span class="txt-a"> uses </span>
+            <span class="power-a">Win All Ties</span>
+          </span>
+        </div>
+
+        <!-- Move pile -->
+        <div class="entry-a dark">
+          <div class="avatar-a dark">O</div>
+          <span>
+            <span class="name-a dark">Ombre</span>
+            <span class="txt-a"> moves a pile</span>
+          </span>
+        </div>
+
+        <!-- Pass -->
+        <div class="entry-a light">
+          <div class="avatar-a light">L</div>
+          <span>
+            <span class="name-a light">Lumière</span>
+            <span class="txt-a"> passes</span>
+          </span>
+        </div>
+
+        <!-- Round separator -->
+        <div class="sep-a">
+          <span class="round-label">Round 1</span>
+          <span class="dash"> — </span>
+          <span class="winner-name light">Lumière wins</span>
+          <button class="details-btn-a">Details</button>
+        </div>
+
+        <!-- Choose Lone Wolf -->
+        <div class="entry-a light">
+          <div class="avatar-a light">L</div>
+          <span>
+            <span class="icon-a gold">★</span>
+            <span class="name-a light">Lumière</span>
+            <span class="txt-a"> adds a Lone Wolf (value </span>
+            <span class="badge-a light">5</span>
+            <span class="txt-a">) to their deck</span>
+          </span>
+        </div>
+
+        <!-- Place value 5 -->
+        <div class="entry-a dark">
+          <div class="avatar-a dark">O</div>
+          <span>
+            <span class="name-a dark">Ombre</span>
+            <span class="txt-a"> places a value </span>
+            <span class="badge-a dark">1</span>
+            <span class="txt-a"> wolf</span>
+          </span>
+        </div>
+
+        <!-- Round 2 — Tie -->
+        <div class="sep-a">
+          <span class="round-label">Round 2</span>
+          <span class="dash"> — </span>
+          <span class="tie-label">Tie</span>
+          <button class="details-btn-a">Details</button>
+        </div>
+
+        <!-- Game over -->
+        <div class="gameover-a">
+          <div class="go-winner">
+            <span class="go-crown">✳</span>
+            <strong class="go-name light"> Lumière</strong>
+            <span class="go-pts"> 3 mountains</span>
+          </div>
+          <div class="go-divider"></div>
+          <div class="go-row">
+            <span class="go-dot light"></span>
+            <span class="go-rname light">Lumière</span>
+            <span class="go-rscore">3 mountains</span>
+          </div>
+          <div class="go-row">
+            <span class="go-dot dark"></span>
+            <span class="go-rname dark">Ombre</span>
+            <span class="go-rscore">1 mountain</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="chatbar-a">
+        <input type="text" placeholder="Send a message...">
+        <button class="send-a">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     CONCEPT B — "Forest Chronicle"
+     ══════════════════════════════════════════════════════ -->
+<div class="concept">
+  <div class="concept-label">B — Forest Chronicle</div>
+  <div class="concept-desc">
+    Ultra-dark immersive panel with etched slate feel. Directional gradients per player.
+    Underline tabs, vine-branch separators. Diamond-shaped value badges.
+  </div>
+
+  <div style="position: relative; padding-top: 52px;">
+    <div class="float-btn-b" title="Toggle journal">📜</div>
+    <div class="panel-b">
+      <div class="tabs-b">
+        <button class="tab-b">Chat</button>
+        <button class="tab-b active">History</button>
+      </div>
+
+      <div class="scroll-b">
+
+        <!-- Choose Alpha Power -->
+        <div class="entry-b light">
+          <div class="avatar-b light">L</div>
+          <span>
+            <span class="icon-b gold">★</span>
+            <span class="name-b light">Lumière</span>
+            <span class="txt-b"> chooses </span>
+            <span class="power-b">Bonus Moons</span>
+          </span>
+        </div>
+
+        <div class="entry-b dark">
+          <div class="avatar-b dark">O</div>
+          <span>
+            <span class="icon-b gold">★</span>
+            <span class="name-b dark">Ombre</span>
+            <span class="txt-b"> chooses </span>
+            <span class="power-b">Move a Pile</span>
+          </span>
+        </div>
+
+        <!-- Draw card -->
+        <div class="entry-b dark">
+          <div class="avatar-b dark">O</div>
+          <span>
+            <span class="name-b dark">Ombre</span>
+            <span class="txt-b"> draws a card</span>
+          </span>
+        </div>
+
+        <!-- Place card -->
+        <div class="entry-b dark">
+          <div class="avatar-b dark">O</div>
+          <span>
+            <span class="name-b dark">Ombre</span>
+            <span class="txt-b"> places a value </span>
+            <span class="badge-b dark"><span>1</span></span>
+            <span class="txt-b"> wolf</span>
+          </span>
+        </div>
+
+        <div class="entry-b light">
+          <div class="avatar-b light">L</div>
+          <span>
+            <span class="name-b light">Lumière</span>
+            <span class="txt-b"> draws a card</span>
+          </span>
+        </div>
+
+        <div class="entry-b light">
+          <div class="avatar-b light">L</div>
+          <span>
+            <span class="name-b light">Lumière</span>
+            <span class="txt-b"> places a value </span>
+            <span class="badge-b light"><span>3</span></span>
+            <span class="txt-b"> wolf</span>
+          </span>
+        </div>
+
+        <!-- Cover/stack -->
+        <div class="entry-b dark">
+          <div class="avatar-b dark">O</div>
+          <span>
+            <span class="icon-b sword">⚔</span>
+            <span class="name-b dark">Ombre</span>
+            <span class="txt-b"> covers a wolf with a value </span>
+            <span class="badge-b dark"><span>4</span></span>
+            <span class="txt-b"> wolf</span>
+          </span>
+        </div>
+
+        <!-- Power used -->
+        <div class="entry-b light">
+          <div class="avatar-b light">L</div>
+          <span>
+            <span class="name-b light">Lumière</span>
+            <span class="icon-b bolt"> ⚡</span>
+            <span class="txt-b"> uses </span>
+            <span class="power-b">Bonus Moons</span>
+          </span>
+        </div>
+
+        <!-- Pass -->
+        <div class="entry-b dark">
+          <div class="avatar-b dark">O</div>
+          <span>
+            <span class="name-b dark">Ombre</span>
+            <span class="txt-b"> passes</span>
+          </span>
+        </div>
+
+        <!-- Move pile -->
+        <div class="entry-b dark">
+          <div class="avatar-b dark">O</div>
+          <span>
+            <span class="name-b dark">Ombre</span>
+            <span class="txt-b"> moves a pile</span>
+          </span>
+        </div>
+
+        <!-- Round separator -->
+        <div class="sep-b">
+          <div class="sep-center">
+            <span class="round-label">Round 1</span>
+            <span style="color: var(--cream-dim); font-size: 0.68rem;"> — </span>
+            <span class="winner-name dark">Ombre wins</span>
+            <button class="details-btn-b">Details</button>
+          </div>
+        </div>
+
+        <!-- Choose Lone Wolf -->
+        <div class="entry-b dark">
+          <div class="avatar-b dark">O</div>
+          <span>
+            <span class="icon-b gold">★</span>
+            <span class="name-b dark">Ombre</span>
+            <span class="txt-b"> adds a Lone Wolf (value </span>
+            <span class="badge-b dark"><span>6</span></span>
+            <span class="txt-b">) to their deck</span>
+          </span>
+        </div>
+
+        <div class="entry-b light">
+          <div class="avatar-b light">L</div>
+          <span>
+            <span class="name-b light">Lumière</span>
+            <span class="txt-b"> places a value </span>
+            <span class="badge-b light"><span>2</span></span>
+            <span class="txt-b"> wolf</span>
+          </span>
+        </div>
+
+        <!-- Round 2 — Tie -->
+        <div class="sep-b">
+          <div class="sep-center">
+            <span class="round-label">Round 2</span>
+            <span style="color: var(--cream-dim); font-size: 0.68rem;"> — </span>
+            <span class="tie-label">Tie</span>
+            <button class="details-btn-b">Details</button>
+          </div>
+        </div>
+
+        <!-- Game over -->
+        <div class="gameover-b">
+          <div class="go-winner">
+            <span class="go-crown">✳</span>
+            <strong class="go-name dark"> Ombre</strong>
+            <span class="go-pts"> 3 mountains</span>
+          </div>
+          <div class="go-divider"></div>
+          <div class="go-row">
+            <span class="go-dot dark"></span>
+            <span class="go-rname dark">Ombre</span>
+            <span class="go-rscore">3 mountains</span>
+          </div>
+          <div class="go-row">
+            <span class="go-dot light"></span>
+            <span class="go-rname light">Lumière</span>
+            <span class="go-rscore">2 mountains</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="chatbar-b">
+        <input type="text" placeholder="Send a message...">
+        <button class="send-b">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /concepts -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     THEME MAPPING TABLE
+     ══════════════════════════════════════════════════════ -->
+<div class="theme-map">
+  <h3>GameTheme Mapping Reference</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Theme Property</th>
+        <th>Concept A</th>
+        <th>Concept B</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>palette.surface</td>
+        <td><span class="color-swatch" style="background:#122c2c;"></span>#122c2c</td>
+        <td><span class="color-swatch" style="background:#0d2020;"></span>#0d2020</td>
+      </tr>
+      <tr>
+        <td>palette.onSurface</td>
+        <td><span class="color-swatch" style="background:#e0dcc0;"></span>#e0dcc0</td>
+        <td><span class="color-swatch" style="background:#a09878;"></span>#a09878 (dimmer)</td>
+      </tr>
+      <tr>
+        <td>palette.primary</td>
+        <td><span class="color-swatch" style="background:#c89828;"></span>#c89828 (gold)</td>
+        <td><span class="color-swatch" style="background:#4a9a8a;"></span>#4a9a8a (teal)</td>
+      </tr>
+      <tr>
+        <td>menu.panel</td>
+        <td>Fractal noise texture + teal gradient</td>
+        <td>Grain texture + ultra-dark gradient</td>
+      </tr>
+      <tr>
+        <td>menu.mainButton</td>
+        <td>Gold crescent moon ☽, teal bg</td>
+        <td>Scroll icon 📜, dark bg</td>
+      </tr>
+      <tr>
+        <td>journal.tab</td>
+        <td>Pill-shaped, transparent</td>
+        <td>Underline-only, no bg</td>
+      </tr>
+      <tr>
+        <td>journal.tabSelected</td>
+        <td>Gold bg tint + gold border</td>
+        <td>Gold underline 2px</td>
+      </tr>
+      <tr>
+        <td>journal.historyEntry</td>
+        <td>No bg, left-border glow, 0.35em radius</td>
+        <td>Directional gradient, 2px left border</td>
+      </tr>
+      <tr>
+        <td>journal.chatBar</td>
+        <td>Pill input, gold accents</td>
+        <td>Squared input, teal accents</td>
+      </tr>
+      <tr>
+        <td>Per-entry css</td>
+        <td>Player color via border-left + ::before glow</td>
+        <td>Player color via gradient direction</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

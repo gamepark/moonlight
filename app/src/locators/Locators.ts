@@ -13,6 +13,9 @@ import { loneWolfDeckLocator } from './LoneWolfDeckLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { playAreaLocator } from './PlayAreaLocator'
 import { wonCardsLocator } from './WonCardsLocator'
+import { cardValueZoneLocator } from './CardValueZoneLocator'
+import { cardEffectZoneLocator } from './CardEffectZoneLocator'
+import { cardMoonZoneLocator } from './CardMoonZoneLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.WolfDeck]: wolfDeckLocator,
@@ -25,5 +28,8 @@ export const Locators: Partial<Record<LocationType, Locator<PlayerColor, Materia
   [LocationType.MountainArea]: mountainAreaLocator,
   [LocationType.PlayerAlphaPower]: playerAlphaPowerLocator,
   [LocationType.PlayerMountain]: playerMountainLocator,
-  [LocationType.WonCards]: wonCardsLocator
+  [LocationType.WonCards]: wonCardsLocator,
+  [LocationType.CardValueZone]: cardValueZoneLocator,
+  [LocationType.CardEffectZone]: cardEffectZoneLocator,
+  [LocationType.CardMoonZone]: cardMoonZoneLocator
 }

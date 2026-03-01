@@ -9,5 +9,8 @@ export enum LocationType {
   MountainArea,
   PlayerAlphaPower,
   PlayerMountain,
-  WonCards
+  WonCards,
+  CardValueZone = 20,
+  CardEffectZone,
+  CardMoonZone
 }

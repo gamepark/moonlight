@@ -1,5 +1,6 @@
 import { AlphaPowerCard } from '@gamepark/moonlight/material/AlphaPowerCard'
-import { CardDescription, MaterialItem } from '@gamepark/react-game'
+import { CardDescription } from '@gamepark/react-game'
+import { MaterialItem } from '@gamepark/rules-api'
 import { AlphaPowerHelp } from './help/AlphaPowerHelp'
 import AlphaPowerEN1 from '../images/alpha/en/AlphaPowerEN1.jpg'
 import AlphaPowerEN2 from '../images/alpha/en/AlphaPowerEN2.jpg'

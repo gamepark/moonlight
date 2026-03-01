@@ -39,32 +39,7 @@ export function App() {
 }
 
 const helpDialogCss = css`
-  /* Close button (X) — only in help dialogs with navigation arrows */
-  .help-open div:has(.fa-chevron-left) > .svg-inline--fa.fa-xmark,
-  .help-open div:has(.fa-chevron-right) > .svg-inline--fa.fa-xmark {
-    top: -0.4em !important;
-    right: -0.4em !important;
-    width: 0.8em !important;
-    height: 0.8em !important;
-    padding: 0.2em;
-    background: linear-gradient(145deg, #1f4f4f, #1a4040);
-    color: #e0dcc0;
-    border-radius: 50%;
-    border: 2px solid rgba(200, 152, 40, 0.3);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    z-index: 100;
-
-    &:hover {
-      transform: scale(1.1);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-      background: linear-gradient(145deg, #255555, #1f4f4f);
-      border-color: rgba(200, 152, 40, 0.5);
-    }
-  }
-
-  /* Navigation arrows */
+  /* Navigation arrows (no theme slot, must use Global CSS) */
   .help-open div:has(> .fa-chevron-left),
   .help-open div:has(> .fa-chevron-right) {
     z-index: 1 !important;

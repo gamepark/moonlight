@@ -1,11 +1,7 @@
-import { LocationType } from '@gamepark/moonlight/material/LocationType'
-import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
-import { AlphaPowerHelper } from '@gamepark/moonlight/rules/helper/AlphaPowerHelper'
 import { PlayAreaHelper } from '@gamepark/moonlight/rules/helper/PlayAreaHelper'
 import { PlaceCardRule } from '@gamepark/moonlight/rules/PlaceCardRule'
 import { Memory } from '@gamepark/moonlight/rules/Memory'
 import { RuleId } from '@gamepark/moonlight/rules/RuleId'
-import { wolfValue } from '@gamepark/moonlight/material/WolfCard'
 import { Locator, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialRules } from '@gamepark/rules-api'
 import { wolfCardDescription } from '../material/WolfCardDescription'
@@ -23,22 +19,14 @@ class PlayAreaLocator extends Locator {
 
     if (isPlacement || isMovePilePlace) {
       const helper = new PlayAreaHelper(rules.game)
-      const topCards = helper.getTopCards()
-      const powers = new AlphaPowerHelper(rules.game, player!)
 
       let spaces: Location[]
-      let handItems
 
       if (isMovePilePlace) {
         spaces = helper.availableSpaces()
-        handItems = (rules as MaterialRules).material(MaterialType.WolfCard)
-          .location(LocationType.PlayerHand).player(player!)
-          .filter(item => wolfValue((item.id as { front: number })?.front) === 2)
-          .getItems()
       } else {
         const rule = new PlaceCardRule(rules.game)
         spaces = rule.availableSpaces
-        handItems = rule.hand.getItems()
       }
 
       // Only show ground-level drop areas (z=0) to avoid revealing stacking targets
