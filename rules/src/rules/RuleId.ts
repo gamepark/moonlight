@@ -1,5 +1,13 @@
 export enum RuleId {
   DrawCard = 1,
   PlaceCard,
-  EndOfTurn
+  EndOfTurn,
+  EndOfRound,
+  ChooseLoneWolf,
+  ChooseAlphaPower,
+  NewRound,
+  PrepareRound,
+  PlaceSecondCard,
+  MovePile,
+  ViewRoundResults
 }

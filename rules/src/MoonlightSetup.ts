@@ -2,11 +2,13 @@ import { MaterialGameSetup } from '@gamepark/rules-api'
 import { alphaPowerCards } from './material/AlphaPowerCard'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { MountainToken } from './material/MountainToken'
 import { PlayerAidCard } from './material/PlayerAidCard'
 import { darkWolfCards, isLoneWolf, lightWolfCards } from './material/WolfCard'
 import { MoonlightOptions } from './MoonlightOptions'
 import { MoonlightRules } from './MoonlightRules'
 import { PlayerColor } from './PlayerColor'
+import { Memory } from './rules/Memory'
 import { RuleId } from './rules/RuleId'
 
 /**
@@ -18,10 +20,13 @@ export class MoonlightSetup extends MaterialGameSetup<PlayerColor, MaterialType,
   setupMaterial(_options: MoonlightOptions) {
     this.setupPlayers()
     this.setupAlphaPowers()
+    this.setupMountains()
   }
 
   start() {
-    this.startPlayerTurn(RuleId.DrawCard, this.players[0])
+    this.memorize(Memory.Round, 1)
+    this.memorize(Memory.FirstPlayer, this.players[0])
+    this.startPlayerTurn(RuleId.PlaceCard, this.players[0])
   }
 
   setupPlayers() {
@@ -46,6 +51,22 @@ export class MoonlightSetup extends MaterialGameSetup<PlayerColor, MaterialType,
       },
       4
     )
+  }
+
+  setupMountains() {
+    for (const player of [PlayerColor.Light, PlayerColor.Dark]) {
+      const bottomId = player === PlayerColor.Light ? MountainToken.LightBottom : MountainToken.DarkBottom
+      const topId = player === PlayerColor.Light ? MountainToken.LightTop : MountainToken.DarkTop
+
+      this.material(MaterialType.MountainToken).createItem({
+        id: bottomId,
+        location: { type: LocationType.MountainArea, player, x: 0 }
+      })
+      this.material(MaterialType.MountainToken).createItem({
+        id: topId,
+        location: { type: LocationType.MountainArea, player, x: 1 }
+      })
+    }
   }
 
   setupPlayer(player: PlayerColor) {
@@ -88,6 +109,11 @@ export class MoonlightSetup extends MaterialGameSetup<PlayerColor, MaterialType,
       }
     })
 
-    this.material(MaterialType.WolfCard).location(LocationType.WolfDeck).locationId(player).shuffle()
+    this.material(MaterialType.WolfCard).location(LocationType.WolfDeck).player(player).shuffle()
+
+    this.material(MaterialType.WolfCard).location(LocationType.WolfDeck).player(player).deck().deal(
+      { type: LocationType.PlayerHand, player },
+      3
+    )
   }
 }

@@ -6,5 +6,8 @@ export enum LocationType {
   PlayArea,
   AlphaPowerArea,
   AlphaPowerDeck,
-  MountainArea
+  MountainArea,
+  PlayerAlphaPower,
+  PlayerMountain,
+  WonCards
 }

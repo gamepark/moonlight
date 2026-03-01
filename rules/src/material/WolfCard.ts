@@ -44,30 +44,36 @@ export const wolfColor = (wolf: WolfCard): PlayerColor => Math.floor(wolf / 100)
 export const wolfValue = (wolf: WolfCard) => wolf % 10
 export const isLoneWolf = (wolf: WolfCard) => wolf % 100 > 20
 
-export const wolfMoons = (wolf: WolfCard) => {
-  if (isLoneWolf(wolf)) {
-    switch (wolfValue(wolf)) {
-      case 1:
-        return 2
-      case 2:
-        return 1
-      default:
-        return 0
-    }
-  } else {
-    return wolf % 100 > 10 ? 1 : 0
-  }
+const wolfMoonsMap: Partial<Record<WolfCard, number>> = {
+  [WolfCard.LightWolfMoon1]: 1,
+  [WolfCard.LightWolfMoon2]: 1,
+  [WolfCard.LightWolfMoon3]: 1,
+  [WolfCard.LightWolfMoon4]: 1,
+  [WolfCard.DarkWolfMoon1]: 1,
+  [WolfCard.DarkWolfMoon2]: 1,
+  [WolfCard.DarkWolfMoon3]: 1,
+  [WolfCard.DarkWolfMoon4]: 1,
+  [WolfCard.LightLoneWolf1]: 2,
+  [WolfCard.LightLoneWolf2]: 1,
+  [WolfCard.DarkLoneWolf1]: 2,
+  [WolfCard.DarkLoneWolf2]: 1
 }
 
-export const wolfEffect = (wolf: WolfCard) => {
-  switch (wolf % 100) {
-    case 1:
-    case 21:
-    case 22:
-      return WolfEffect.CornerTriplesValue
-    case 3:
-      return WolfEffect.BonusPoint
-    default:
-      return
-  }
+export const wolfMoons = (wolf: WolfCard): number => wolfMoonsMap[wolf] ?? 0
+
+const wolfEffectMap: Partial<Record<WolfCard, WolfEffect>> = {
+  [WolfCard.LightWolf1]: WolfEffect.CornerTriplesValue,
+  [WolfCard.LightWolfMoon1]: WolfEffect.CornerTriplesValue,
+  [WolfCard.LightLoneWolf1]: WolfEffect.CornerTriplesValue,
+  [WolfCard.LightLoneWolf2]: WolfEffect.CornerTriplesValue,
+  [WolfCard.LightWolf3]: WolfEffect.BonusPoint,
+  [WolfCard.LightWolfMoon3]: WolfEffect.BonusPoint,
+  [WolfCard.DarkWolf1]: WolfEffect.CornerTriplesValue,
+  [WolfCard.DarkWolfMoon1]: WolfEffect.CornerTriplesValue,
+  [WolfCard.DarkLoneWolf1]: WolfEffect.CornerTriplesValue,
+  [WolfCard.DarkLoneWolf2]: WolfEffect.CornerTriplesValue,
+  [WolfCard.DarkWolf3]: WolfEffect.BonusPoint,
+  [WolfCard.DarkWolfMoon3]: WolfEffect.BonusPoint
 }
+
+export const wolfEffect = (wolf: WolfCard): WolfEffect | undefined => wolfEffectMap[wolf]
