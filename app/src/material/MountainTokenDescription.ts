@@ -9,8 +9,13 @@ import MountainTopLight from '../images/tokens/MountainTopLight.png'
 class MountainTokenDescription extends TokenDescription {
   help = MountainTokenHelp
   width = 6
-  height = 4
+  height = 3.9
   borderRadius = 0.5
+
+  getSize(itemId: MountainToken) {
+    const isTop = itemId === MountainToken.LightTop || itemId === MountainToken.DarkTop
+    return { width: 6, height: isTop ? 4.74 : 3.9 }
+  }
 
   transparency = true
 

@@ -1,30 +1,51 @@
 import { LocationType } from '@gamepark/moonlight/material/LocationType'
 import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
+import { RuleId } from '@gamepark/moonlight/rules/RuleId'
 import { HandLocator, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialGame, MaterialRules } from '@gamepark/rules-api'
 
 const CARD_ANATOMY_STEP = 2
 
 class PlayerHandLocator extends HandLocator {
+  game?: MaterialGame
+  shifted = false
+
   getCoordinates(location: Location, context: MaterialContext) {
     const { rules, player } = context
-    const hasWonCards = (rules as MaterialRules).material(MaterialType.WolfCard)
-      .location(LocationType.WonCards).player(location.player).length > 0
-    const y = hasWonCards ? 21 : 14
+    const y = this.shifted ? 21 : 14
     if (location.player === (player ?? rules.players[0])) {
       return { x: -30, y, z: 0 }
     }
     return { x: 30, y, z: 0 }
   }
 
+  getPositionDependencies(location: Location, context: MaterialContext): unknown {
+    if (context.rules.game !== this.game) {
+      this.refreshShifted(context.rules as MaterialRules)
+      this.game = context.rules.game
+    }
+    return [super.getPositionDependencies(location, context), this.shifted]
+  }
+
+  refreshShifted(rules: MaterialRules) {
+    const ruleId = rules.game.rule?.id
+    if (ruleId === RuleId.EndOfRound || ruleId === RuleId.ViewRoundResults) {
+      this.shifted = true
+    } else {
+      const hasWonCards = rules.material(MaterialType.WolfCard)
+        .location(LocationType.WonCards).length > 0
+      this.shifted = hasWonCards
+    }
+  }
+
   getGapMaxAngle(location: Location, context: MaterialContext): number {
-    const tutorial = (context.rules.game as MaterialGame).tutorial
+    const tutorial = context.rules.game.tutorial
     if (tutorial?.step === CARD_ANATOMY_STEP) return 4
     return super.getGapMaxAngle(location, context)
   }
 
   getMaxAngle(location: Location, context: MaterialContext): number {
-    const tutorial = (context.rules.game as MaterialGame).tutorial
+    const tutorial = context.rules.game.tutorial
     if (tutorial?.step === CARD_ANATOMY_STEP) return 16
     return super.getMaxAngle(location, context)
   }

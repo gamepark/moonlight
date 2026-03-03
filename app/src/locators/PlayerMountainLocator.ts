@@ -6,8 +6,9 @@ class PlayerMountainLocator extends Locator {
   getCoordinates(location: Location, context: MaterialContext) {
     const coordinates = playerAlphaPowerLocator.getCoordinates(location, context)
     // Bottom (x:0) then top (x:1) stacked above, overlapping
-    coordinates.y -= 10 + (location.x ?? 0) * 2.4
-    coordinates.z = (location.x ?? 0) + 0.1
+    const x = location.x ?? 0
+    coordinates.y -= 10 + x * 2.77
+    coordinates.z = x === 0 ? 0.2 : 0.1
     return coordinates
   }
 }
