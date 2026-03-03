@@ -2,15 +2,16 @@ import { PlayAreaHelper } from '@gamepark/moonlight/rules/helper/PlayAreaHelper'
 import { PlaceCardRule } from '@gamepark/moonlight/rules/PlaceCardRule'
 import { Memory } from '@gamepark/moonlight/rules/Memory'
 import { RuleId } from '@gamepark/moonlight/rules/RuleId'
-import { GridBoundaries, GridLocator, MaterialContext } from '@gamepark/react-game'
-import { Location, MaterialRules } from '@gamepark/rules-api'
+import { GridLocator, ItemContext, MaterialContext } from '@gamepark/react-game'
+import { Location, MaterialItem, MaterialRules } from '@gamepark/rules-api'
 import { wolfCardDescription } from '../material/WolfCardDescription'
 import { PlayAreaDescription } from './description/PlayAreaDescription'
 
 class PlayAreaLocator extends GridLocator {
   gap = { x: wolfCardDescription.width + 0.5, y: wolfCardDescription.height + 0.5, z: 0.5 }
+  gridSize = { columns: 3, rows: 3 }
 
-  getBoundaries(_location: Location, context: MaterialContext): GridBoundaries | undefined {
+  getBoundaries(_location: Location, context: MaterialContext) {
     const helper = new PlayAreaHelper(context.rules.game)
     return helper.outerSquareBoundaries
   }
@@ -41,7 +42,12 @@ class PlayAreaLocator extends GridLocator {
     return super.getLocations(context)
   }
 
-  getHoverTransform = () => {
+  getHoverTransform(item: MaterialItem, context: ItemContext) {
+    if (item.id?.front === undefined) return []
+    const boundaries = new PlayAreaHelper(context.rules.game).outerSquareBoundaries
+    if ((item.location.y ?? 0) >= boundaries.yMax) {
+      return ['translateZ(10em)', 'translateY(-40%)', 'scale(2)']
+    }
     return ['translateZ(10em)', 'scale(2)']
   }
 
