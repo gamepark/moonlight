@@ -160,7 +160,7 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, backdrop = 
       <div css={actionCss}>
         {onClose ? (
           <button css={btnCss} onClick={onClose}>
-            <Trans i18nKey="Close" defaults="Close" />
+            <Trans i18nKey="Close" defaults="Close" ns="common" />
           </button>
         ) : hasConfirmed ? (
           <span css={waitingCss}>
