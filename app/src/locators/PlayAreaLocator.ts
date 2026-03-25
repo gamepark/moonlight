@@ -9,7 +9,6 @@ import { PlayAreaDescription } from './description/PlayAreaDescription'
 
 class PlayAreaLocator extends GridLocator {
   gap = { x: wolfCardDescription.width + 0.5, y: wolfCardDescription.height + 0.5, z: 0.5 }
-  gridSize = { columns: 3, rows: 3 }
 
   getBoundaries(_location: Location, context: MaterialContext) {
     const helper = new PlayAreaHelper(context.rules.game)
