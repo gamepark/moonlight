@@ -2,12 +2,19 @@
 import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/moonlight/material/LocationType'
 import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
-import { isLoneWolf, WolfCard, wolfEffect, WolfEffect, wolfMoons, wolfValue } from '@gamepark/moonlight/material/WolfCard'
+import { PlayerColor } from '@gamepark/moonlight/PlayerColor'
+import { isLoneWolf, WolfCard, wolfColor, wolfEffect, WolfEffect, wolfMoons, wolfValue } from '@gamepark/moonlight/material/WolfCard'
 import { MaterialHelpProps, PlayMoveButton, useLegalMoves } from '@gamepark/react-game'
 import { isMoveItemType, MoveItem } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { helpHeaderCss, helpChooseBtnCss } from './helpStyles'
+import moonLight from '../../images/icon/moon-light.jpg'
+import moonDark from '../../images/icon/moon-dark.jpg'
+import x3Light from '../../images/icon/x3-light.jpg'
+import x3Dark from '../../images/icon/x3-dark.jpg'
+import plus1Light from '../../images/icon/plus1-light.jpg'
+import plus1Dark from '../../images/icon/plus1-moon.jpg'
 
 export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDialog }) => {
   const { t } = useTranslation()
@@ -23,6 +30,8 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
   const moons = wolfMoons(id)
   const lone = isLoneWolf(id)
   const effect = wolfEffect(id)
+  const color = wolfColor(id)
+  const isLight = color === PlayerColor.Light
 
   const title = lone
     ? t('help.wolf.lone', 'Lone Wolf')
@@ -53,33 +62,42 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
       )}
 
       {moons > 0 && (
-        <p css={textCss}>
-          <Trans i18nKey="help.wolf.moon-explain" defaults="At the end of the round, the player with the most visible moons scores <b>2 bonus points</b>. In case of a tie, nobody scores the bonus." components={{ b: <strong css={boldCss} /> }} />
-        </p>
+        <div css={effectBoxWithIconCss}>
+          <img src={isLight ? moonLight : moonDark} alt="" css={effectIconCss} />
+          <div>
+            <Trans i18nKey="help.wolf.moon-explain" defaults="At the end of the round, the player with the most visible moons scores <b>2 bonus points</b>. In case of a tie, nobody scores the bonus." components={{ b: <strong css={effectBoldCss} /> }} />
+          </div>
+        </div>
       )}
 
       {effect === WolfEffect.CornerTriplesValue && (
-        <div css={effectBoxCss}>
-          <Trans
-            i18nKey="help.wolf.corner-triple"
-            defaults="If this card is in one of the 4 corners of the panorama at the end of the round, its value counts <b>triple</b> (= {tripled}) for the row battle."
-            values={{ tripled: value * 3 }}
-            components={{ b: <strong css={effectBoldCss} /> }}
-          />
-          {value <= 2 && (
-            <p css={effectNoteCss}>
-              {t('help.wolf.corner-triple.cover', 'It must still be covered by a value {coverValue}, even in a corner.', { coverValue: value + 1 })}
-            </p>
-          )}
+        <div css={effectBoxWithIconCss}>
+          <img src={isLight ? x3Light : x3Dark} alt="" css={effectIconCss} />
+          <div>
+            <Trans
+              i18nKey="help.wolf.corner-triple"
+              defaults="If this card is in one of the 4 corners of the panorama at the end of the round, its value counts <b>triple</b> (= {tripled}) for the row battle."
+              values={{ tripled: value * 3 }}
+              components={{ b: <strong css={effectBoldCss} /> }}
+            />
+            {value <= 2 && (
+              <p css={effectNoteCss}>
+                {t('help.wolf.corner-triple.cover', 'It must still be covered by a value {coverValue}, even in a corner.', { coverValue: value + 1 })}
+              </p>
+            )}
+          </div>
         </div>
       )}
 
       {effect === WolfEffect.BonusPoint && (
-        <div css={effectBoxCss}>
-          <Trans i18nKey="help.wolf.bonus-point" defaults="If you win a row containing this card, it scores <b>2 points</b> instead of 1 (1 normal + 1 bonus)." components={{ b: <strong css={effectBoldCss} /> }} />
-          <p css={effectNoteCss}>
-            <Trans i18nKey="help.wolf.bonus-point.copies" defaults="Each player has <b>2 copies</b> of this card." components={{ b: <strong css={effectBoldCss} /> }} />
-          </p>
+        <div css={effectBoxWithIconCss}>
+          <img src={isLight ? plus1Light : plus1Dark} alt="" css={effectIconCss} />
+          <div>
+            <Trans i18nKey="help.wolf.bonus-point" defaults="If you win a row containing this card, it scores <b>2 points</b> instead of 1 (1 normal + 1 bonus)." components={{ b: <strong css={effectBoldCss} /> }} />
+            <p css={effectNoteCss}>
+              <Trans i18nKey="help.wolf.bonus-point.copies" defaults="Each player has <b>2 copies</b> of this card." components={{ b: <strong css={effectBoldCss} /> }} />
+            </p>
+          </div>
         </div>
       )}
 
@@ -104,6 +122,9 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
 
       <div css={rulesSectionCss}>
         <div css={rulesTitleCss}>{t('help.wolf.rules.title', 'Placement rules')}</div>
+        <p css={rulesTextCss}>
+          <Trans i18nKey="help.wolf.rules.grid" defaults="Cards are placed on a grid that grows up to a <b>4×3 or 3×4</b> rectangle." components={{ b: <strong css={effectBoldCss} /> }} />
+        </p>
         <p css={rulesTextCss}>
           <Trans i18nKey="help.wolf.rules.cover" defaults="You can cover an opponent's wolf by placing a card with exactly <b>+1 value</b> on top. The covered card is hidden and no longer counts." components={{ b: <strong css={effectBoldCss} /> }} />
         </p>
@@ -157,7 +178,10 @@ const boldCss = css`
   color: #d8d0b0;
 `
 
-const effectBoxCss = css`
+const effectBoxWithIconCss = css`
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7em;
   background: rgba(200, 152, 40, 0.06);
   border-left: 3px solid rgba(200, 152, 40, 0.27);
   padding: 0.5em 0.9em;
@@ -165,6 +189,14 @@ const effectBoxCss = css`
   border-radius: 0 0.3em 0.3em 0;
   font-size: 0.85em;
   line-height: 1.5;
+`
+
+const effectIconCss = css`
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
 `
 
 const effectBoldCss = css`

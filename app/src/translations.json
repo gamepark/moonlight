@@ -62,6 +62,7 @@
       "help.wolf.uncoverable.unless": ", unless through the Lone Wolf value 6",
       "help.wolf.lone.explain": "Chosen by the round winner and added to their deck. Strengthens the pack for the next rounds.",
       "help.wolf.rules.title": "Placement rules",
+      "help.wolf.rules.grid": "Cards are placed on a grid that grows up to a <b>4×3 or 3×4</b> rectangle.",
       "help.wolf.rules.cover": "You can cover an opponent's wolf by placing a card with exactly <b>+1 value</b> on top. The covered card is hidden and no longer counts.",
       "help.wolf.rules.row": "Each row is a battle: the player with the <b>highest total value</b> wins the row and recovers their visible cards.",
       "help.wolf.rules.scoring": "Each recovered card = <b>1 point</b>. Value 3 cards with the +1 icon = <b>2 points</b>.",
@@ -140,7 +141,8 @@
       "log.game-over.points": "{score, plural, one{# mountain} other{# mountains}}",
       "log.game-over.mountains": "{score, plural, one{# mountain} other{# mountains}}",
       "help.wolf.choose": "Add to my deck",
-      "help.alpha.choose": "Choose this power"
+      "help.alpha.choose": "Choose this power",
+      "help.alpha.how-to-get": "<b>How to get:</b> The loser of each round chooses one of the two revealed Alpha Power cards."
     }
   },
   "fr": {
@@ -203,6 +205,7 @@
       "help.wolf.uncoverable.unless": ", sauf via le Loup Solitaire valeur 6",
       "help.wolf.lone.explain": "Choisi par le gagnant de manche et ajouté à sa pioche. Renforce la meute pour les prochaines manches.",
       "help.wolf.rules.title": "Règles de placement",
+      "help.wolf.rules.grid": "Les cartes sont placées sur une grille qui grandit jusqu'à un rectangle de <b>4×3 ou 3×4</b>.",
       "help.wolf.rules.cover": "Vous pouvez couvrir un loup adverse en posant une carte de valeur exactement <b>+1</b> par-dessus. La carte couverte est masquée et ne compte plus.",
       "help.wolf.rules.row": "Chaque rangée est une bataille : le joueur avec la <b>plus haute valeur totale</b> remporte la rangée et récupère ses cartes visibles.",
       "help.wolf.rules.scoring": "Chaque carte récupérée = <b>1 point</b>. Les cartes de valeur 3 avec l'icône +1 = <b>2 points</b>.",
@@ -284,7 +287,8 @@
       "log.game-over.points": "{score, plural, one{# montagne} other{# montagnes}}",
       "log.game-over.mountains": "{score, plural, one{# montagne} other{# montagnes}}",
       "help.wolf.choose": "Ajouter à ma pioche",
-      "help.alpha.choose": "Choisir ce pouvoir"
+      "help.alpha.choose": "Choisir ce pouvoir",
+      "help.alpha.how-to-get": "<b>Comment l'obtenir :</b> Le perdant de chaque manche choisit l'un des deux Pouvoirs Alpha révélés."
     }
   }
 }

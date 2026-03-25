@@ -4,7 +4,7 @@ import { PlayerAidHelp } from './help/PlayerAidHelp'
 import AidDarkEN from '../images/aid/en/AidDarkEN.jpg'
 import AidLightEN from '../images/aid/en/AidLightEN.jpg'
 
-class PlayerAidDescription extends CardDescription {
+export class PlayerAidDescription extends CardDescription {
   help = PlayerAidHelp
 
   images = {

@@ -128,7 +128,7 @@ export const theme = {
       border-radius: 0 0.35em 0.35em 0;
       padding: 0.3em 0.6em 0.3em 0.8em;
       margin-bottom: 0.12em;
-      font-size: 2em;
+      font-size: 2.4em;
       color: #a09878;
     `
   },

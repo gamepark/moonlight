@@ -106,6 +106,14 @@ export const AlphaPowerHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
           {t('help.alpha.moon-reminder', 'Reminder: the player with the most visible moons scores 2 bonus points. In case of a tie, nobody scores.')}
         </div>
       )}
+
+      <div css={howToGetCss}>
+        <Trans
+          i18nKey="help.alpha.how-to-get"
+          defaults="<b>How to get:</b> The loser of each round chooses one of the two revealed Alpha Power cards."
+          components={{ b: <strong css={boldCss} /> }}
+        />
+      </div>
     </div>
   )
 }
@@ -178,5 +186,14 @@ const ruleBoxCss = css`
   font-size: 0.8em;
   line-height: 1.5;
   color: #a0b8a8;
+`
+
+const howToGetCss = css`
+  margin-top: 0.8em;
+  padding-top: 0.6em;
+  border-top: 1px solid rgba(200, 152, 40, 0.12);
+  font-size: 0.78em;
+  line-height: 1.5;
+  color: #a09878;
 `
 

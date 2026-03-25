@@ -219,7 +219,7 @@ const popupCss = css`
   box-shadow:
     0 0 0 1px ${TEAL_LIGHT},
     0 1.5em 5em rgba(0, 0, 0, 0.5);
-  font-size: 1.3em;
+  font-size: calc(2.5em * var(--gp-scale, 1));
 `
 
 const titleCss = css`

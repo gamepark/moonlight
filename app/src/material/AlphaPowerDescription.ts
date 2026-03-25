@@ -12,15 +12,15 @@ import AlphaPowerEN7 from '../images/alpha/en/AlphaPowerEN7.jpg'
 import AlphaPowerEN8 from '../images/alpha/en/AlphaPowerEN8.jpg'
 import AlphaBack from '../images/alpha/AlphaBack.jpg'
 
-class AlphaPowerCardDescription extends CardDescription {
+export class AlphaPowerCardDescription extends CardDescription {
   help = AlphaPowerHelp
   backImage = AlphaBack
 
   isFlippedOnTable(item: Partial<MaterialItem>) {
     if (item.location?.rotation === true) return true
-    // Default behavior: flip when id is hidden (e.g. deck with hideItemId)
     return item.id === undefined
   }
+
   images = {
     [AlphaPowerCard.AlphaPower1]: AlphaPowerEN1,
     [AlphaPowerCard.AlphaPower2]: AlphaPowerEN2,

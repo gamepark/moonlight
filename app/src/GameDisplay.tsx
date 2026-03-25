@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { RuleId } from '@gamepark/moonlight/rules/RuleId'
-import { GameTable, GameTableNavigation, useGame } from '@gamepark/react-game'
+import { DevToolsHub, GameTable, GameTableNavigation, useGame } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { FC, useCallback, useEffect, useState } from 'react'
 import { PlayerPanels } from './panels/PlayerPanels'
@@ -31,6 +31,7 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
         <PlayerPanels />
       </GameTable>
       {isViewingResults && <RoundScorePopup />}
+      <DevToolsHub />
       {!isViewingResults && reviewSnapshot && (
         <RoundScorePopup
           onClose={closeReview}
