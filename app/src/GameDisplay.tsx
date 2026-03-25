@@ -1,28 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { RuleId } from '@gamepark/moonlight/rules/RuleId'
-import { DevToolsHub, GameTable, GameTableNavigation, useGame } from '@gamepark/react-game'
-import { MaterialGame } from '@gamepark/rules-api'
-import { FC, useCallback, useEffect, useState } from 'react'
+import { DevToolsHub, GameTable, GameTableNavigation } from '@gamepark/react-game'
+import { FC } from 'react'
 import { PlayerPanels } from './panels/PlayerPanels'
-import { RoundScorePopup } from './scoring/RoundScorePopup'
-import { onOpenRoundScore, RoundScoreSnapshot } from './scoring/roundScoreState'
+import { RoundScoreOverlay } from './scoring/RoundScoreOverlay'
 
 type GameDisplayProps = {
   players: number
 }
 
 export const GameDisplay: FC<GameDisplayProps> = () => {
-  const game = useGame<MaterialGame>()
-  const isViewingResults = game?.rule?.id === RuleId.ViewRoundResults
-  const [reviewSnapshot, setReviewSnapshot] = useState<RoundScoreSnapshot | null>(null)
-
-  useEffect(() => {
-    onOpenRoundScore((snapshot) => setReviewSnapshot(snapshot))
-  }, [])
-
   const margin = { top: 7, left: 0, right: 0, bottom: 0 }
-  const closeReview = useCallback(() => setReviewSnapshot(null), [])
 
   return (
     <>
@@ -30,16 +18,8 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
         <GameTableNavigation css={navContainerCss} />
         <PlayerPanels />
       </GameTable>
-      {isViewingResults && <RoundScorePopup />}
+      <RoundScoreOverlay />
       {import.meta.env.DEV && <DevToolsHub />}
-      {!isViewingResults && reviewSnapshot && (
-        <RoundScorePopup
-          onClose={closeReview}
-          backdrop={false}
-          popupStyle={reviewPopupCss}
-          snapshot={reviewSnapshot}
-        />
-      )}
     </>
   )
 }
@@ -85,12 +65,4 @@ const navContainerCss = css`
       border-color: rgba(200, 152, 40, 0.1) !important;
     }
   }
-`
-
-const reviewPopupCss = css`
-  position: fixed;
-  top: 50%;
-  left: 36vw;
-  transform: translateY(-50%);
-  z-index: 1100;
 `

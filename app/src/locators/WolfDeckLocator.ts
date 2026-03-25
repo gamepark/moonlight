@@ -2,6 +2,7 @@ import { DeckLocator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 
 class WolfDeckLocator extends DeckLocator {
+  navigationSorts = []
   getCoordinates(location: Location, context: MaterialContext) {
     const { rules, player } = context
     if (location.player === (player ?? rules.players[0])) {

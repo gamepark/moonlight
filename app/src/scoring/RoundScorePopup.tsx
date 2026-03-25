@@ -5,19 +5,31 @@ import { PlayerColor } from '@gamepark/moonlight/PlayerColor'
 import { Memory, PlayerScoreBreakdown, RoundResultsData } from '@gamepark/moonlight/rules/Memory'
 import { PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { MaterialMoveBuilder } from '@gamepark/rules-api'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { RoundScoreSnapshot } from './roundScoreState'
 
 type RoundScorePopupProps = {
   onClose?: () => void
+  onConfirm?: () => void
+  minimized?: boolean
+  onMinimize?: () => void
+  onRestore?: () => void
+  autoDismiss?: () => void
   backdrop?: boolean
   popupStyle?: Interpolation<Theme>
   snapshot?: RoundScoreSnapshot
 }
 
-export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, backdrop = true, popupStyle, snapshot }) => {
+export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, minimized, onMinimize, onRestore, autoDismiss, backdrop = true, popupStyle, snapshot }) => {
   const { t } = useTranslation()
+
+  // Auto-dismiss after 30s (for spectators)
+  useEffect(() => {
+    if (!autoDismiss) return
+    const timer = setTimeout(autoDismiss, 30000)
+    return () => clearTimeout(timer)
+  }, [autoDismiss])
   const rules = useRules<MoonlightRules>()!
   const me = usePlayerId<PlayerColor>()
   const winner = snapshot?.winner ?? rules.remind<PlayerColor | undefined>(Memory.RoundWinner)
@@ -49,6 +61,11 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, backdrop = 
 
   const content = (
     <div css={[popupCss, popupStyle]}>
+
+      {/* Minimize button */}
+      {onMinimize && (
+        <button css={minimizeBtnCss} onClick={onMinimize} title="Minimize">−</button>
+      )}
 
       {/* Title */}
       <div css={titleCss}>
@@ -158,18 +175,18 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, backdrop = 
 
       {/* Action */}
       <div css={actionCss}>
-        {onClose ? (
+        {snapshot ? (
           <button css={btnCss} onClick={onClose}>
             <Trans i18nKey="Close" defaults="Close" ns="common" />
           </button>
-        ) : hasConfirmed ? (
-          <span css={waitingCss}>
-            <Trans i18nKey="round-results.waiting" defaults="Waiting for opponent..." />
-          </span>
-        ) : me !== undefined ? (
-          <PlayMoveButton move={confirmMove} css={btnCss} auto={20}>
+        ) : me !== undefined && !hasConfirmed ? (
+          <PlayMoveButton move={confirmMove} onPlay={onConfirm} css={btnCss} auto={30}>
             <Trans i18nKey="round-results.continue" defaults="Continue" />
           </PlayMoveButton>
+        ) : onClose ? (
+          <button css={btnCss} onClick={onClose}>
+            <Trans i18nKey="Close" defaults="Close" ns="common" />
+          </button>
         ) : null}
       </div>
     </div>
@@ -178,11 +195,18 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, backdrop = 
   if (!backdrop) return content
 
   return (
-    <div css={backdropCss} onClick={onClose}>
-      <div onClick={e => e.stopPropagation()}>
-        {content}
+    <>
+      {minimized && (
+        <button css={fabCss} onClick={onRestore}>
+          <Trans i18nKey="round-results.show" defaults="Round results" />
+        </button>
+      )}
+      <div css={[backdropCss, minimized && hiddenCss]} onClick={onMinimize}>
+        <div onClick={e => e.stopPropagation()}>
+          {content}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -208,6 +232,7 @@ const backdropCss = css`
 `
 
 const popupCss = css`
+  position: relative;
   background:
     radial-gradient(ellipse at 30% 20%, rgba(30, 80, 70, 0.25) 0%, transparent 60%),
     linear-gradient(170deg, ${TEAL_DEEP} 0%, ${TEAL} 50%, ${TEAL_DEEP} 100%);
@@ -376,4 +401,56 @@ const waitingCss = css`
   color: ${CREAM_DIM};
   font-style: italic;
   font-size: 0.85em;
+`
+
+const minimizeBtnCss = css`
+  position: absolute;
+  top: 0.6em;
+  right: 0.6em;
+  width: 1.6em;
+  height: 1.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 700;
+  border-radius: 50%;
+  border: 1px solid ${GOLD}33;
+  background: ${GOLD}15;
+  color: ${CREAM_DIM};
+  cursor: pointer;
+  transition: all 0.15s;
+  &:hover {
+    background: ${GOLD}30;
+    color: ${GOLD_LIGHT};
+    border-color: ${GOLD}55;
+  }
+`
+
+const hiddenCss = css`
+  visibility: hidden;
+  pointer-events: none;
+`
+
+const fabCss = css`
+  position: fixed;
+  bottom: 1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  padding: 0.6em 1.5em;
+  font-size: calc(2em * var(--gp-scale, 1));
+  border-radius: 2em;
+  border: 1.5px solid ${GOLD}55;
+  background: linear-gradient(145deg, ${TEAL}, ${TEAL_DEEP});
+  color: ${GOLD_LIGHT};
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0.3em 1.5em rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  &:hover {
+    background: linear-gradient(145deg, ${TEAL_LIGHT}, ${TEAL});
+    border-color: ${GOLD}88;
+    box-shadow: 0 0.3em 2em rgba(200, 152, 40, 0.15);
+  }
 `

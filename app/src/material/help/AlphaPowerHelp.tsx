@@ -3,8 +3,8 @@ import { css } from '@emotion/react'
 import { AlphaPowerCard, alphaPowerEffects } from '@gamepark/moonlight/material/AlphaPowerCard'
 import { LocationType } from '@gamepark/moonlight/material/LocationType'
 import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
-import { MaterialHelpProps, PlayMoveButton, useLegalMoves } from '@gamepark/react-game'
-import { isMoveItemType, MoveItem } from '@gamepark/rules-api'
+import { MaterialHelpProps, PlayMoveButton, useLegalMoves, useRules } from '@gamepark/react-game'
+import { isMoveItemType, MaterialRules, MoveItem } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { helpHeaderCss, helpChooseBtnCss } from './helpStyles'
@@ -53,8 +53,30 @@ export const AlphaPowerHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
     isMoveItemType(MaterialType.AlphaPowerCard)(move) && move.itemIndex === itemIndex && move.location.type === LocationType.PlayerAlphaPower
   )
 
+  const rules = useRules<MaterialRules>()
   const id = item.id as AlphaPowerCard
-  if (id === undefined) return null
+  if (id === undefined) {
+    const deckCount = item.location && rules
+      ? rules.material(MaterialType.AlphaPowerCard).location(item.location.type).length
+      : undefined
+    return (
+      <div css={containerCss}>
+        <div css={titleCss}>{t('help.deck.alpha.title', 'Alpha Power Deck')}</div>
+        {deckCount !== undefined && (
+          <div css={countTagCss}>
+            {t('help.deck.count', '{count, plural, one{# card} other{# cards}}', { count: deckCount })}
+          </div>
+        )}
+        <div css={howToGetCss}>
+          <Trans
+            i18nKey="help.alpha.how-to-get"
+            defaults="<b>How to get:</b> The loser of each round chooses one of the two revealed Alpha Power cards."
+            components={{ b: <strong css={boldCss} /> }}
+          />
+        </div>
+      </div>
+    )
+  }
 
   const index = id - AlphaPowerCard.AlphaPower1 + 1
   const effect = alphaPowerEffects[id]
@@ -186,6 +208,17 @@ const ruleBoxCss = css`
   font-size: 0.8em;
   line-height: 1.5;
   color: #a0b8a8;
+`
+
+const countTagCss = css`
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: 700;
+  padding: 0.15em 0.55em;
+  border-radius: 0.25em;
+  background: #40606030;
+  color: #8898a8;
+  margin-bottom: 0.6em;
 `
 
 const howToGetCss = css`

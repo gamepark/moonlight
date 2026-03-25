@@ -2,6 +2,7 @@ import { DeckLocator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 
 class AlphaPowerDeckLocator extends DeckLocator {
+  navigationSorts = []
   getCoordinates(_location: Location, _context: MaterialContext) {
     return { x: -10, y: -25, z: 0 }
   }

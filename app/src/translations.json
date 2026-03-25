@@ -142,7 +142,11 @@
       "log.game-over.mountains": "{score, plural, one{# mountain} other{# mountains}}",
       "help.wolf.choose": "Add to my deck",
       "help.alpha.choose": "Choose this power",
-      "help.alpha.how-to-get": "<b>How to get:</b> The loser of each round chooses one of the two revealed Alpha Power cards."
+      "help.alpha.how-to-get": "<b>How to get:</b> The loser of each round chooses one of the two revealed Alpha Power cards.",
+      "help.deck.wolf.title": "Wolf Deck",
+      "help.deck.lone.title": "Lone Wolf Deck",
+      "help.deck.alpha.title": "Alpha Power Deck",
+      "help.deck.count": "{count, plural, one{# card} other{# cards}}"
     }
   },
   "fr": {
@@ -288,7 +292,11 @@
       "log.game-over.mountains": "{score, plural, one{# montagne} other{# montagnes}}",
       "help.wolf.choose": "Ajouter à ma pioche",
       "help.alpha.choose": "Choisir ce pouvoir",
-      "help.alpha.how-to-get": "<b>Comment l'obtenir :</b> Le perdant de chaque manche choisit l'un des deux Pouvoirs Alpha révélés."
+      "help.alpha.how-to-get": "<b>Comment l'obtenir :</b> Le perdant de chaque manche choisit l'un des deux Pouvoirs Alpha révélés.",
+      "help.deck.wolf.title": "Pioche de loups",
+      "help.deck.lone.title": "Pioche de Loups Solitaires",
+      "help.deck.alpha.title": "Pioche de Pouvoirs Alpha",
+      "help.deck.count": "{count, plural, one{# carte} other{# cartes}}"
     }
   }
 }

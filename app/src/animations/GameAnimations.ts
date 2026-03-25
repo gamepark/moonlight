@@ -1,7 +1,7 @@
 import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
 import { RuleId } from '@gamepark/moonlight/rules/RuleId'
 import { MaterialGameAnimations } from '@gamepark/react-game'
-import { isMoveItemType } from '@gamepark/rules-api'
+import { isMoveItemType, isStartSimultaneousRule } from '@gamepark/rules-api'
 
 export const gameAnimations = new MaterialGameAnimations()
 
@@ -60,3 +60,8 @@ gameAnimations
   .rule(RuleId.PrepareRound)
   .move(isMoveItemType(MaterialType.WolfCard))
   .duration(0.3)
+
+gameAnimations
+.configure((move, context) => isStartSimultaneousRule(move) && move.id === RuleId.ViewRoundResults && context.player === undefined)
+.postMove()
+.duration(0.2)
