@@ -31,7 +31,7 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
         <PlayerPanels />
       </GameTable>
       {isViewingResults && <RoundScorePopup />}
-      <DevToolsHub />
+      {import.meta.env.DEV && <DevToolsHub />}
       {!isViewingResults && reviewSnapshot && (
         <RoundScorePopup
           onClose={closeReview}
