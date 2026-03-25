@@ -55,6 +55,11 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
   const getRowLost = (row: RoundResultsData['rows'][number], player: PlayerColor) =>
     (player === PlayerColor.Light && row.winner === 'dark') || (player === PlayerColor.Dark && row.winner === 'light')
 
+  const isGameWon = winner !== undefined && (() => {
+    const key = winner === PlayerColor.Light ? Memory.LightMountains : Memory.DarkMountains
+    return (rules.remind<number>(key) ?? 0) >= 2
+  })()
+
   const confirmMove = me !== undefined ? MaterialMoveBuilder.endPlayerTurn(me) : undefined
 
   if (!results) return null
@@ -71,9 +76,13 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
       <div css={titleCss}>
         {winner === undefined
           ? <Trans i18nKey="round-results.title.tie" defaults="The round is tied!" />
-          : winner === me
-            ? <Trans i18nKey="round-results.title.winner.me" defaults="You win the round!" />
-            : <Trans i18nKey="round-results.title.winner" defaults="{player} wins the round!" values={{ player: winnerName }} />
+          : isGameWon
+            ? (winner === me
+              ? <Trans i18nKey="round-results.title.winner-game.me" defaults="You win the round! And the game!" />
+              : <Trans i18nKey="round-results.title.winner-game" defaults="{player} wins the round! And the game!" values={{ player: winnerName }} />)
+            : (winner === me
+              ? <Trans i18nKey="round-results.title.winner.me" defaults="You win the round!" />
+              : <Trans i18nKey="round-results.title.winner" defaults="{player} wins the round!" values={{ player: winnerName }} />)
         }
       </div>
 
