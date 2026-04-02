@@ -405,12 +405,6 @@ const btnCss = css`
   }
 `
 
-const waitingCss = css`
-  color: ${CREAM_DIM};
-  font-style: italic;
-  font-size: 0.85em;
-`
-
 const minimizeBtnCss = css`
   position: absolute;
   top: 0.6em;
