@@ -9,18 +9,18 @@ export const PlayerAidHelp: FC<MaterialHelpProps> = () => {
 
   return (
     <div css={containerCss}>
-      <div css={titleCss}>{t('help.aid.title', 'Player Aid')}</div>
+      <div css={titleCss}>{t('help.aid.title')}</div>
 
-      <div css={sectionTitleCss}>{t('help.aid.moons', 'Moon majority')}</div>
+      <div css={sectionTitleCss}>{t('help.aid.moons')}</div>
       <p css={textCss}>
-        <Trans i18nKey="help.aid.moons.desc" defaults="At the end of the round, the player with <b>the most visible moons</b> scores 2 bonus points. In case of a tie, nobody scores the bonus." components={{ b: <strong css={boldCss} /> }} />
+        <Trans i18nKey="help.aid.moons.desc" components={{ b: <strong css={boldCss} /> }} />
       </p>
 
       <div css={separatorCss} />
 
-      <div css={sectionTitleCss}>{t('help.aid.distrib', 'Wolves distribution')}</div>
+      <div css={sectionTitleCss}>{t('help.aid.distrib')}</div>
       <p css={textCss}>
-        {t('help.aid.distrib.desc', 'Each player starts with 11 wolves in their deck:')}
+        {t('help.aid.distrib.desc')}
       </p>
       <div css={distribGridCss}>
         <span css={distribCellCss}>1 ×2</span>
@@ -30,7 +30,7 @@ export const PlayerAidHelp: FC<MaterialHelpProps> = () => {
         <span css={distribCellCss}>5 ×1</span>
       </div>
       <p css={noteTextCss}>
-        {t('help.aid.distrib.note', 'Value 3 wolves come in 4 copies (2 normal + 2 with the +1 bonus icon).')}
+        {t('help.aid.distrib.note')}
       </p>
     </div>
   )

@@ -9,30 +9,30 @@ export const MountainTokenHelp: FC<MaterialHelpProps> = () => {
 
   return (
     <div css={containerCss}>
-      <div css={titleCss}>{t('help.mountain.title', 'Mountain Token')}</div>
+      <div css={titleCss}>{t('help.mountain.title')}</div>
 
       <p css={textCss}>
-        <Trans i18nKey="help.mountain.desc" defaults="The round winner receives a piece of their mountain. The first player to get <b>2 pieces completes their mountain and wins the game</b>." components={{ b: <strong css={boldCss} /> }} />
+        <Trans i18nKey="help.mountain.desc" components={{ b: <strong css={boldCss} /> }} />
       </p>
 
       <div css={separatorCss} />
 
-      <div css={sectionTitleCss}>{t('help.mountain.round', 'Round overview:')}</div>
+      <div css={sectionTitleCss}>{t('help.mountain.round')}</div>
       <ul css={listCss}>
-        <li>{t('help.mountain.round.1', 'Players take turns placing wolves on the panorama (4×3 or 3×4 rectangle).')}</li>
-        <li>{t('help.mountain.round.2', 'A wolf can be placed adjacent to an existing card, or on top of an opponent\'s wolf with exactly +1 value.')}</li>
-        <li>{t('help.mountain.round.3', 'The round ends when the rectangle is complete or a player places their last card.')}</li>
+        <li>{t('help.mountain.round.1')}</li>
+        <li>{t('help.mountain.round.2')}</li>
+        <li>{t('help.mountain.round.3')}</li>
       </ul>
 
-      <div css={sectionTitleCss}>{t('help.mountain.scoring', 'Scoring:')}</div>
+      <div css={sectionTitleCss}>{t('help.mountain.scoring')}</div>
       <ul css={listCss}>
-        <li>{t('help.mountain.scoring.1', 'Moon majority → 2 bonus points (no bonus if tied)')}</li>
-        <li>{t('help.mountain.scoring.2', 'Each row is a battle: highest total value wins (tie → both lose the row)')}</li>
-        <li>{t('help.mountain.scoring.3', 'The row winner recovers their visible cards: each card = 1 point, value 3 cards = 2 points')}</li>
+        <li>{t('help.mountain.scoring.1')}</li>
+        <li>{t('help.mountain.scoring.2')}</li>
+        <li>{t('help.mountain.scoring.3')}</li>
       </ul>
 
       <div css={ruleBoxCss}>
-        {t('help.mountain.between', 'Between rounds: the winner chooses a Lone Wolf (added to their deck). The loser chooses an Alpha Power (kept for the rest of the game).')}
+        {t('help.mountain.between')}
       </div>
     </div>
   )

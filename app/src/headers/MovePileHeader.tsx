@@ -10,7 +10,6 @@ export const MovePileHeader = () => {
   const isMe = player === me
   return <Trans
     i18nKey={isMe ? 'header.move-pile.me' : 'header.move-pile'}
-    defaults={isMe ? 'You must move a pile and place a value 2 card' : '{player} must move a pile and place a value 2 card'}
     values={{ player: name }}
   />
 }

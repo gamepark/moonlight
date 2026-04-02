@@ -13,7 +13,7 @@ export const DrawCardLog: FC<MoveComponentProps<MaterialMove>> = ({ context }) =
   return (
     <span>
       <span css={playerNameCss(player)}>{name}</span>
-      {' '}{t('log.draw-card.text', 'draws a card')}
+      {' '}{t('log.draw-card.text')}
     </span>
   )
 }

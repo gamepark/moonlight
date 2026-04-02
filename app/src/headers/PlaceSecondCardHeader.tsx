@@ -11,7 +11,6 @@ export const PlaceSecondCardHeader = () => {
   const isMe = player === me
   return <Trans
     i18nKey={isMe ? 'header.place-second-card.me' : 'header.place-second-card'}
-    defaults={isMe ? 'You may place a second card or <pass>pass</pass>' : '{player} may place a second card or <pass>pass</pass>'}
     values={{ player: name }}
     components={{
       pass: <PlayMoveButton move={isMe ? rules.customMove(CustomMoveType.Pass) : undefined} auto={5} />

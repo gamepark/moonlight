@@ -24,14 +24,14 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 1. Welcome
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.welcome" defaults="Welcome to <b>Moonlight</b>! Two wolf packs compete to build a panorama and dominate the mountain.\nEach turn, you place a card from your hand, then draw a new one.\nWin <b>2 mountain tokens</b> to claim victory!" components={{ b: <strong/> }} />
+        text: () => <Trans i18nKey="tuto.welcome" components={{ b: <strong/> }} />
       }
     },
 
     // 2. Show hand — hand is at y=14 (bottom). Zoom on it → reserve space above for popup
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.hand" defaults="This is your hand. Each card has a <b>value</b> (1 to 5) and may have special icons.\nYou'll learn about them in the next step!" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.hand" components={{ b: <strong/> }} />,
         position: { y: -15 }
       },
       focus: (game) => ({
@@ -44,7 +44,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 3. Card anatomy — focus hand + highlight icons (x3, +1, moon) via fake locations
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.card-anatomy" defaults="Look at the icons on your cards!\nThe <b>×3</b> icon (top-left) triples the card's value if placed in a corner.\nThe <b>+1</b> icon means the card scores a bonus point when you win its row.\nThe <b>moon</b> symbol counts for the moon majority bonus." components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.card-anatomy" components={{ b: <strong/> }} />,
         position: { y: -15 }
       },
       focus: (game) => ({
@@ -62,7 +62,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 4. Show Alpha Powers — at y=-25 (top area). Zoom → reserve space below for popup
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.alpha-powers" defaults="These are the <b>Alpha Powers</b>. Between rounds, the loser picks one.\nThey grant special abilities: <b>Stamina</b> (always active) or <b>Ambush</b> (once per round).\nClick on a card to see its effect!" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.alpha-powers" components={{ b: <strong/> }} />,
         position: { y: 15 }
       },
       focus: (game) => ({
@@ -75,7 +75,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 5. Show Lone Wolves — at x=-37, y=-10 (top-left). Zoom → reserve space on right for popup
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.lone-wolves" defaults="These are the <b>Lone Wolves</b>. The round winner adds one to their deck.\nThey have special values (1, 2, 4, 6) and like regular wolves, some have <b>moons</b> or the <b>×3</b> corner effect." components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.lone-wolves" components={{ b: <strong/> }} />,
         position: { x: 15 }
       },
       focus: (game) => ({
@@ -88,7 +88,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 6. Place first card — focus hand (y=14) + play area drop zone (y~0). Popup above
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.place-first" defaults="Place your wolf on the panorama!\nCards must be placed adjacent to existing cards, forming a grid up to a <b>4×3 or 3×4</b> rectangle.\nEach row will be a separate battle at the end of the round." components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.place-first" components={{ b: <strong/> }} />,
         position: { y: -18 }
       },
       focus: (game) => ({
@@ -110,7 +110,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 7. Draw happened automatically
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.after-draw" defaults="You drew a new card from your deck.\nNow your opponent will play their turn." />
+        text: () => <Trans i18nKey="tuto.after-draw" />
       }
     },
 
@@ -131,7 +131,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 9. Place 2nd card — focus hand + play area cards. Popup above
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.place-second" defaults="Your opponent placed a wolf next to yours.\nPlace another card to expand the panorama." />,
+        text: () => <Trans i18nKey="tuto.place-second" />,
         position: { y: -18 }
       },
       focus: (game) => ({
@@ -168,7 +168,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 11. Explain stacking — play area (~y=0) + hand (y=14) = large zone. Popup above
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.stacking" defaults="You can cover an opponent's wolf by placing a card with exactly <b>+1 value</b> on top!\nPlace your <b>Moon Wolf</b> (value 2) on the opponent's wolf (value 1) to take control of that spot." components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.stacking" components={{ b: <strong/> }} />,
         position: { y: -18 }
       },
       focus: (game) => ({
@@ -192,21 +192,21 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 12. Scoring explanation
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.scoring" defaults="At the end of a round, each row of the panorama is a battle: the player with the <b>highest total value</b> wins the row and recovers their visible cards.\nThe player with the most <b>moons</b> scores <b>2 bonus points</b>.\nThe round winner earns a <b>mountain token</b>." components={{ b: <strong/> }} />
+        text: () => <Trans i18nKey="tuto.scoring" components={{ b: <strong/> }} />
       }
     },
 
     // 13. Win condition
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.win-condition" defaults="The first player to collect <b>2 mountain tokens</b> wins the game!" components={{ b: <strong/> }} />
+        text: () => <Trans i18nKey="tuto.win-condition" components={{ b: <strong/> }} />
       }
     },
 
     // 14. Good luck
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.end" defaults="You're ready to play <b>Moonlight</b>!\nBuild your panorama, win row battles, and dominate the mountain.\nGood luck!" components={{ b: <strong/> }} />
+        text: () => <Trans i18nKey="tuto.end" components={{ b: <strong/> }} />
       }
     }
   ]

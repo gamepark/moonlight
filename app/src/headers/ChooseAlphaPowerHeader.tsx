@@ -10,7 +10,6 @@ export const ChooseAlphaPowerHeader = () => {
   const isMe = player === me
   return <Trans
     i18nKey={isMe ? 'header.choose-alpha-power.me' : 'header.choose-alpha-power'}
-    defaults={isMe ? 'You must choose an Alpha Power' : '{player} must choose an Alpha Power'}
     values={{ player: name }}
   />
 }

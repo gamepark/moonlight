@@ -25,9 +25,9 @@ export const PlaceCardLog: FC<MoveComponentProps<MaterialMove>> = ({ move, conte
       <span>
         <span css={stackIconCss}>{'\u2694'}</span>
         <span css={playerNameCss(player)}>{name}</span>
-        {' '}{t('log.place-card.stack.text', 'covers a wolf with a value')}{' '}
+        {' '}{t('log.place-card.stack.text')}{' '}
         <span css={valueBadgeCss(cardPlayer)}>{value}</span>
-        {' '}{t('log.place-card.stack.wolf', 'wolf')}
+        {' '}{t('log.place-card.stack.wolf')}
       </span>
     )
   }
@@ -36,9 +36,9 @@ export const PlaceCardLog: FC<MoveComponentProps<MaterialMove>> = ({ move, conte
     return (
       <span>
         <span css={playerNameCss(player)}>{name}</span>
-        {' '}{t('log.place-card.value.text', 'places a value')}{' '}
+        {' '}{t('log.place-card.value.text')}{' '}
         <span css={valueBadgeCss(cardPlayer)}>{value}</span>
-        {' '}{t('log.place-card.value.wolf', 'wolf')}
+        {' '}{t('log.place-card.value.wolf')}
       </span>
     )
   }
@@ -46,7 +46,7 @@ export const PlaceCardLog: FC<MoveComponentProps<MaterialMove>> = ({ move, conte
   return (
     <span>
       <span css={playerNameCss(player)}>{name}</span>
-      {' '}{t('log.place-card.text', 'places a card')}
+      {' '}{t('log.place-card.text')}
     </span>
   )
 }

@@ -24,21 +24,21 @@ export const RoundEndLog: FC<MoveComponentProps<MaterialMove>> = ({ context }) =
     <div css={separatorWrapCss}>
       <span css={separatorTextCss}>
         <span css={separatorTitleCss}>
-          {t('log.round-end.round', 'Round {round}', { round })}
+          {t('log.round-end.round', { round })}
         </span>
         {' \u2014 '}
         {winner !== undefined ? (
           <span css={separatorWinnerCss(winner)}>
-            {t('log.round-end.wins', '{player} wins', { player: winnerName })}
+            {t('log.round-end.wins', { player: winnerName })}
           </span>
         ) : (
           <span css={separatorTieCss}>
-            {t('log.round-end.tie.label', 'Tie')}
+            {t('log.round-end.tie.label')}
           </span>
         )}
       </span>
       <button css={logButtonCss} onClick={handleClick}>
-        {t('log.round-end.details', 'Details')}
+        {t('log.round-end.details')}
       </button>
     </div>
   )

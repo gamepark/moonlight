@@ -10,7 +10,6 @@ export const ChooseLoneWolfHeader = () => {
   const isMe = player === me
   return <Trans
     i18nKey={isMe ? 'header.choose-lone-wolf.me' : 'header.choose-lone-wolf'}
-    defaults={isMe ? 'You must choose a Lone Wolf card' : '{player} must choose a Lone Wolf card'}
     values={{ player: name }}
   />
 }

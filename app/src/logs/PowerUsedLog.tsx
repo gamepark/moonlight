@@ -27,11 +27,11 @@ export const PowerUsedLog: FC<MoveComponentProps<MaterialMove>> = ({ move, conte
     <span>
       <span css={playerNameCss(player)}>{name}</span>
       {' '}<span css={powerIconCss}>{'\u26A1'}</span>
-      {t('log.power-used.verb', 'uses')}{' '}
+      {t('log.power-used.verb')}{' '}
       {openHelp ? (
         <span css={powerLinkCss} onClick={openHelp}>{powerName}</span>
       ) : (
-        <span css={powerNameCss}>{t('log.power-used.fallback', 'an ambush power')}</span>
+        <span css={powerNameCss}>{t('log.power-used.fallback')}</span>
       )}
     </span>
   )

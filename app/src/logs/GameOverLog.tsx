@@ -50,7 +50,7 @@ const WinnerBlock: FC<{ player: PlayerColor, score: number, t: any }> = ({ playe
       <strong css={winnerNameCss(lightPlayerColor[player])}>{name}</strong>
       {' '}
       <span css={winnerPtsCss}>
-        {t('log.game-over.points', '{score, plural, one{# mountain} other{# mountains}}', { score })}
+        {t('log.game-over.points', { score })}
       </span>
     </div>
   )
@@ -64,7 +64,7 @@ const ScoreRow: FC<{ player: PlayerColor, score: number, t: any }> = ({ player, 
       <span css={dotCss(accent)} />
       <span css={nameCss(lightPlayerColor[player])}>{name}</span>
       <span css={scoreCss}>
-        {t('log.game-over.mountains', '{score, plural, one{# mountain} other{# mountains}}', { score })}
+        {t('log.game-over.mountains', { score })}
       </span>
     </div>
   )

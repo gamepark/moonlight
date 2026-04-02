@@ -13,13 +13,13 @@ export const ViewRoundResultsHeader = () => {
   const hasConfirmed = me !== undefined && !activePlayers.includes(me)
 
   if (hasConfirmed) {
-    return <Trans i18nKey="header.round-results.waiting" defaults="Waiting for the other player..." />
+    return <Trans i18nKey="header.round-results.waiting" />
   }
   if (winner === undefined) {
-    return <Trans i18nKey="header.round-results.tie" defaults="The round is tied!" />
+    return <Trans i18nKey="header.round-results.tie" />
   }
   if (me === winner) {
-    return <Trans i18nKey="header.round-results.winner.me" defaults="You win the round!" />
+    return <Trans i18nKey="header.round-results.winner.me" />
   }
-  return <Trans i18nKey="header.round-results.winner" defaults="{player} wins the round!" values={{ player: winnerName }} />
+  return <Trans i18nKey="header.round-results.winner" values={{ player: winnerName }} />
 }

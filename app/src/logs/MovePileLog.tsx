@@ -13,7 +13,7 @@ export const MovePileLog: FC<MoveComponentProps<MaterialMove>> = ({ context }) =
   return (
     <span>
       <span css={playerNameCss(player)}>{name}</span>
-      {' '}{t('log.move-pile.text', 'moves a pile')}
+      {' '}{t('log.move-pile.text')}
     </span>
   )
 }

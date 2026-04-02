@@ -24,9 +24,9 @@ export const ChooseLoneWolfLog: FC<MoveComponentProps<MaterialMove>> = ({ move, 
       <span>
         <span css={pickMarkerCss}>{'\u25C6'}</span>
         <span css={playerNameCss(player)}>{name}</span>
-        {' '}{t('log.choose-lone-wolf.value.text', 'adds a Lone Wolf (value')}{' '}
+        {' '}{t('log.choose-lone-wolf.value.text')}{' '}
         <span css={valueBadgeCss(cardPlayer)}>{value}</span>
-        {') '}{t('log.choose-lone-wolf.value.deck', 'to their deck')}
+        {') '}{t('log.choose-lone-wolf.value.deck')}
       </span>
     )
   }
@@ -35,7 +35,7 @@ export const ChooseLoneWolfLog: FC<MoveComponentProps<MaterialMove>> = ({ move, 
     <span>
       <span css={pickMarkerCss}>{'\u25C6'}</span>
       <span css={playerNameCss(player)}>{name}</span>
-      {' '}{t('log.choose-lone-wolf.text', 'chooses a Lone Wolf')}
+      {' '}{t('log.choose-lone-wolf.text')}
     </span>
   )
 }

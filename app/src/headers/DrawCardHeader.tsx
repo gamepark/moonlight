@@ -10,7 +10,6 @@ export const DrawCardHeader = () => {
   const isMe = player === me
   return <Trans
     i18nKey={isMe ? 'header.draw-card.me' : 'header.draw-card'}
-    defaults={isMe ? 'You draw a card' : '{player} draws a card'}
     values={{ player: name }}
   />
 }

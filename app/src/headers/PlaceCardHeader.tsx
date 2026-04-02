@@ -21,7 +21,6 @@ export const PlaceCardHeader = () => {
   if (canMovePile) {
     return <Trans
       i18nKey={isMe ? 'header.place-card.move-pile.me' : 'header.place-card.move-pile'}
-      defaults={isMe ? 'You must place a card or <button>move a pile</button>' : '{player} must place a card or <button>move a pile</button>'}
       values={{ player: name }}
       components={{
         button: <PlayMoveButton move={isMe ? rules.customMove(CustomMoveType.ActivateMovePile) : undefined} />
@@ -31,7 +30,6 @@ export const PlaceCardHeader = () => {
 
   return <Trans
     i18nKey={isMe ? 'header.place-card.me' : 'header.place-card'}
-    defaults={isMe ? 'You must place a card' : '{player} must place a card'}
     values={{ player: name }}
   />
 }

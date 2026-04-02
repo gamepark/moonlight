@@ -9,44 +9,6 @@ import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { helpHeaderCss, helpChooseBtnCss } from './helpStyles'
 
-const alphaTitleDefaults: Record<number, string> = {
-  1: 'Value Skip',
-  2: 'Larger Hand',
-  3: 'Value 1 Protection',
-  4: 'Double Placement',
-  5: 'Same Value Cover',
-  6: 'Bonus Moons',
-  7: 'Win All Ties',
-  8: 'Move a Pile'
-}
-
-const alphaCardTextDefaults: Record<number, string> = {
-  1: 'When covering an opponent\'s wolf you can jump one value',
-  2: '5 cards in your hand',
-  3: 'Your opponent can\'t cover any of your 1 value Wolves',
-  4: 'Place 2 cards in one turn',
-  5: 'Cover any of your opponent\'s Wolf with one having the same value',
-  6: 'A bonus of 2 Moons when counting Moon\'s majority',
-  7: 'Win all ties when facing one (Moons, sum of values, round points, etc.)',
-  8: 'Move a pile of cards in an empty space before placing a 2 Valued Wolf'
-}
-
-const alphaExampleDefaults: Record<number, string> = {
-  1: 'Example: cover a value 2 wolf with your value 4.',
-  5: 'Example: cover a value 3 wolf with your value 3.'
-}
-
-const alphaDescDefaults: Record<number, string> = {
-  1: 'When covering an opponent\'s wolf, you may <b>skip a value</b>: place value +2 instead of +1.',
-  2: 'You start each round with <b>5 cards in hand</b> instead of 3. More cards = more choices each turn.',
-  3: 'Your opponent <b>cannot cover your value 1 wolves</b>. Your positions with value 1 (and their moons or corner ×3 effect) are safe.',
-  4: 'Place <b>2 cards in a single turn</b>. After your first placement, you may place a second card or pass.',
-  5: 'Cover an opponent\'s wolf with a wolf of <b>the same value</b> (instead of value +1 normally).',
-  6: 'You gain <b>2 extra moons</b> when counting moon majority. These are added to the moons visible on your panorama cards.',
-  7: 'You <b>win all ties</b>: tied moons = you have majority. Tied row values = you win the row. Tied round score = you win the round.',
-  8: '<b>Move a card pile</b> to an adjacent empty space, then place a value 2 wolf. Both the move and the placement must follow normal placement rules.'
-}
-
 export const AlphaPowerHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDialog }) => {
   const { t } = useTranslation()
   const chooseMoves = useLegalMoves<MoveItem>(move =>
@@ -61,16 +23,16 @@ export const AlphaPowerHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
       : undefined
     return (
       <div css={containerCss}>
-        <div css={titleCss}>{t('help.deck.alpha.title', 'Alpha Power Deck')}</div>
+        <div css={titleCss}>{t('help.deck.alpha.title')}</div>
         {deckCount !== undefined && (
           <div css={countTagCss}>
-            {t('help.deck.count', '{count, plural, one{# card} other{# cards}}', { count: deckCount })}
+            {t('help.deck.count', { count: deckCount })}
           </div>
         )}
         <div css={howToGetCss}>
           <Trans
             i18nKey="help.alpha.how-to-get"
-            defaults="<b>How to get:</b> The loser of each round chooses one of the two revealed Alpha Power cards."
+           
             components={{ b: <strong css={boldCss} /> }}
           />
         </div>
@@ -82,10 +44,10 @@ export const AlphaPowerHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
   const effect = alphaPowerEffects[id]
   const isAmbush = effect.type === 'ambush'
 
-  const title = t(`help.alpha.title.${index}`, alphaTitleDefaults[index])
+  const title = t(`help.alpha.title.${index}`)
   const typeLabel = isAmbush
-    ? t('help.alpha.type.ambush', 'Ambush — Usable once per round')
-    : t('help.alpha.type.stamina', 'Stamina — Always active')
+    ? t('help.alpha.type.ambush')
+    : t('help.alpha.type.stamina')
 
   return (
     <div css={containerCss}>
@@ -98,41 +60,40 @@ export const AlphaPowerHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
         </div>
         {chooseMoves.length > 0 && (
           <PlayMoveButton move={chooseMoves[0]} onPlay={closeDialog} css={helpChooseBtnCss}>
-            {t('help.alpha.choose', 'Choose this power')}
+            {t('help.alpha.choose')}
           </PlayMoveButton>
         )}
       </div>
 
       <div css={cardTextBoxCss}>
-        {t(`help.alpha.cardtext.${index}`, alphaCardTextDefaults[index])}
+        {t(`help.alpha.cardtext.${index}`)}
       </div>
 
       <p css={textCss}>
-        <Trans i18nKey={`help.alpha.desc.${index}`} defaults={alphaDescDefaults[index]} components={{ b: <strong css={boldCss} /> }} />
+        <Trans i18nKey={`help.alpha.desc.${index}`} components={{ b: <strong css={boldCss} /> }} />
       </p>
 
       {(index === 1 || index === 5) && (
         <div css={exampleBoxCss}>
-          {t(`help.alpha.example.${index}`, alphaExampleDefaults[index])}
+          {t(`help.alpha.example.${index}`)}
         </div>
       )}
 
       {isAmbush && (
         <div css={ruleBoxCss}>
-          {t('help.alpha.ambush-note', 'The card is flipped after use. It becomes available again next round.')}
+          {t('help.alpha.ambush-note')}
         </div>
       )}
 
       {effect.extraMoons && (
         <div css={ruleBoxCss}>
-          {t('help.alpha.moon-reminder', 'Reminder: the player with the most visible moons scores 2 bonus points. In case of a tie, nobody scores.')}
+          {t('help.alpha.moon-reminder')}
         </div>
       )}
 
       <div css={howToGetCss}>
         <Trans
           i18nKey="help.alpha.how-to-get"
-          defaults="<b>How to get:</b> The loser of each round chooses one of the two revealed Alpha Power cards."
           components={{ b: <strong css={boldCss} /> }}
         />
       </div>

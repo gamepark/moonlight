@@ -13,7 +13,7 @@ export const PassLog: FC<MoveComponentProps<MaterialMove>> = ({ context }) => {
   return (
     <span>
       <span css={playerNameCss(player)}>{name}</span>
-      {' '}{t('log.pass.text', 'passes')}
+      {' '}{t('log.pass.text')}
     </span>
   )
 }

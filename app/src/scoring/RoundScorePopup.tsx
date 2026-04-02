@@ -75,14 +75,14 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
       {/* Title */}
       <div css={titleCss}>
         {winner === undefined
-          ? <Trans i18nKey="round-results.title.tie" defaults="The round is tied!" />
+          ? <Trans i18nKey="round-results.title.tie" />
           : isGameWon
             ? (winner === me
-              ? <Trans i18nKey="round-results.title.winner-game.me" defaults="You win the round! And the game!" />
-              : <Trans i18nKey="round-results.title.winner-game" defaults="{player} wins the round! And the game!" values={{ player: winnerName }} />)
+              ? <Trans i18nKey="round-results.title.winner-game.me" />
+              : <Trans i18nKey="round-results.title.winner-game" values={{ player: winnerName }} />)
             : (winner === me
-              ? <Trans i18nKey="round-results.title.winner.me" defaults="You win the round!" />
-              : <Trans i18nKey="round-results.title.winner" defaults="{player} wins the round!" values={{ player: winnerName }} />)
+              ? <Trans i18nKey="round-results.title.winner.me" />
+              : <Trans i18nKey="round-results.title.winner" values={{ player: winnerName }} />)
         }
       </div>
 
@@ -96,28 +96,28 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
       {/* Row battles */}
       {results.rows.map((row, i) => (
         <div key={row.y} css={rowCss(i)}>
-          <div css={colLabelCss}>{t('scoring.row', 'Row {n}', { n: i + 1 })}</div>
+          <div css={colLabelCss}>{t('scoring.row', { n: i + 1 })}</div>
           <div css={colCellCss}>
             <span css={rowValCss(getRowWon(row, leftPlayer), getRowLost(row, leftPlayer))}>{getRowCards(row, leftPlayer)}</span>
-            <span css={cardCountCss}>{'\u00a0'}{t('scoring.majority', '(majority {n})', { n: getRowValue(row, leftPlayer) })}</span>
+            <span css={cardCountCss}>{'\u00a0'}{t('scoring.majority', { n: getRowValue(row, leftPlayer) })}</span>
           </div>
           <div css={colCellCss}>
             <span css={rowValCss(getRowWon(row, rightPlayer), getRowLost(row, rightPlayer))}>{getRowCards(row, rightPlayer)}</span>
-            <span css={cardCountCss}>{'\u00a0'}{t('scoring.majority', '(majority {n})', { n: getRowValue(row, rightPlayer) })}</span>
+            <span css={cardCountCss}>{'\u00a0'}{t('scoring.majority', { n: getRowValue(row, rightPlayer) })}</span>
           </div>
         </div>
       ))}
 
       {/* Explanation + scoring section */}
       <div css={sectionExplainCss}>
-        <Trans i18nKey="round-results.explain" defaults="The winner of each row recovers their cards." />
+        <Trans i18nKey="round-results.explain" />
       </div>
 
-      <div css={sectionTitleCss}>{t('round-results.scoring', 'Scoring')}</div>
+      <div css={sectionTitleCss}>{t('round-results.scoring')}</div>
 
       {/* Won cards */}
       <div css={scoreRowCss}>
-        <div css={colLabelCss}>{t('scoring.cards', 'Won cards')}</div>
+        <div css={colLabelCss}>{t('scoring.cards')}</div>
         <div css={colCellCss}>
           <span css={scoreValCss(left.cards > 0)}>{left.cards}</span>
         </div>
@@ -128,7 +128,7 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
 
       {/* Moon majority */}
       <div css={scoreRowCss}>
-        <div css={colLabelCss}>{t('scoring.moons', 'Moon majority')}</div>
+        <div css={colLabelCss}>{t('scoring.moons')}</div>
         <div css={colCellCss}>
           <span css={scoreValCss(left.moonBonus > 0)}>
             {left.moonBonus > 0 ? `+${left.moonBonus}` : '\u2014'}
@@ -144,7 +144,7 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
       {/* V3 bonus */}
       {(left.v3Bonus > 0 || right.v3Bonus > 0) && (
         <div css={scoreRowCss}>
-          <div css={colLabelCss}>{t('scoring.bonus', 'Value 3 bonus')}</div>
+          <div css={colLabelCss}>{t('scoring.bonus')}</div>
           <div css={colCellCss}>
             <span css={scoreValCss(left.v3Bonus > 0)}>
               {left.v3Bonus > 0 ? `+${left.v3Bonus}` : '\u2014'}
@@ -160,7 +160,7 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
 
       {/* Total */}
       <div css={totalRowCss}>
-        <div css={colLabelCss}>{t('scoring.total', 'Total')}</div>
+        <div css={colLabelCss}>{t('scoring.total')}</div>
         <div css={colCellCss}>
           <span css={totalValCss(left.total >= right.total)}>{left.total}</span>
         </div>
@@ -174,11 +174,10 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
         {winner !== undefined ? (
           <Trans
             i18nKey={winner === me ? 'round-results.mountain-awarded.me' : 'round-results.mountain-awarded'}
-            defaults={winner === me ? 'You receive a mountain token!' : '{player} receives a mountain token!'}
             values={{ player: winnerName }}
           />
         ) : (
-          <Trans i18nKey="round-results.no-mountain" defaults="No mountain is awarded. The round will be replayed." />
+          <Trans i18nKey="round-results.no-mountain" />
         )}
       </div>
 
@@ -186,15 +185,15 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
       <div css={actionCss}>
         {snapshot ? (
           <button css={btnCss} onClick={onClose}>
-            <Trans i18nKey="Close" defaults="Close" ns="common" />
+            <Trans i18nKey="Close" ns="common" />
           </button>
         ) : me !== undefined && !hasConfirmed ? (
           <PlayMoveButton move={confirmMove} onPlay={onConfirm} css={btnCss} auto={30}>
-            <Trans i18nKey="round-results.continue" defaults="Continue" />
+            <Trans i18nKey="round-results.continue" />
           </PlayMoveButton>
         ) : onClose ? (
           <button css={btnCss} onClick={onClose}>
-            <Trans i18nKey="Close" defaults="Close" ns="common" />
+            <Trans i18nKey="Close" ns="common" />
           </button>
         ) : null}
       </div>
@@ -207,7 +206,7 @@ export const RoundScorePopup: FC<RoundScorePopupProps> = ({ onClose, onConfirm, 
     <>
       {minimized && (
         <button css={fabCss} onClick={onRestore}>
-          <Trans i18nKey="round-results.show" defaults="Round results" />
+          <Trans i18nKey="round-results.show" />
         </button>
       )}
       <div css={[backdropCss, minimized && hiddenCss]} onClick={onMinimize}>

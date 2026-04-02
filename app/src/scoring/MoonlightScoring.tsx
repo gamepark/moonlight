@@ -18,7 +18,7 @@ export class MoonlightScoring implements ScoringDescription<PlayerColor, Moonlig
   }
 
   getScoringHeader(key: ScoringKey, _rules: MoonlightRules): ScoringValue {
-    return <Trans i18nKey="scoring.round" defaults="Round {n}" values={{ n: key.round }} />
+    return <Trans i18nKey="scoring.round" values={{ n: key.round }} />
   }
 
   getScoringPlayerData(key: ScoringKey, player: PlayerColor, rules: MoonlightRules): ScoringValue | null {

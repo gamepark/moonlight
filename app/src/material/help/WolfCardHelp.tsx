@@ -39,8 +39,8 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
   const isLight = color === PlayerColor.Light
 
   const title = lone
-    ? t('help.wolf.lone', 'Lone Wolf')
-    : t('help.wolf.name', 'Wolf')
+    ? t('help.wolf.lone')
+    : t('help.wolf.name')
 
   return (
     <div css={containerCss}>
@@ -49,26 +49,26 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
           <div css={titleCss}>{title}</div>
           {!isHidden ? (
             <div css={tagRowCss}>
-              <span css={tagCss('#c8982830', '#d4ac40')}>{t('help.wolf.value', 'Value {value}', { value })}</span>
-              {moons > 0 && <span css={tagCss('#4060a030', '#8898c8')}>{t('help.wolf.moon', '{count, plural, one{# moon} other{# moons}}', { count: moons })}</span>}
-              {lone && <span css={tagCss('#a0602020', '#d0a060')}>{t('help.wolf.lone', 'Lone Wolf')}</span>}
+              <span css={tagCss('#c8982830', '#d4ac40')}>{t('help.wolf.value', { value })}</span>
+              {moons > 0 && <span css={tagCss('#4060a030', '#8898c8')}>{t('help.wolf.moon', { count: moons })}</span>}
+              {lone && <span css={tagCss('#a0602020', '#d0a060')}>{t('help.wolf.lone')}</span>}
             </div>
           ) : deckCount !== undefined && (
             <div css={tagRowCss}>
-              <span css={tagCss('#40606030', '#8898a8')}>{t('help.deck.count', '{count, plural, one{# card} other{# cards}}', { count: deckCount })}</span>
+              <span css={tagCss('#40606030', '#8898a8')}>{t('help.deck.count', { count: deckCount })}</span>
             </div>
           )}
         </div>
         {chooseMoves.length > 0 && (
           <PlayMoveButton move={chooseMoves[0]} onPlay={closeDialog} css={helpChooseBtnCss}>
-            {t('help.wolf.choose', 'Add to my deck')}
+            {t('help.wolf.choose')}
           </PlayMoveButton>
         )}
       </div>
 
       {!isHidden && lone && (
         <p css={textCss}>
-          <Trans i18nKey="help.wolf.lone.explain" defaults="Chosen by the round winner and added to their deck. Strengthens the pack for the next rounds." components={{ b: <strong css={boldCss} /> }} />
+          <Trans i18nKey="help.wolf.lone.explain" components={{ b: <strong css={boldCss} /> }} />
         </p>
       )}
 
@@ -76,7 +76,7 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
         <div css={effectBoxWithIconCss}>
           <img src={isLight ? moonLight : moonDark} alt="" css={effectIconCss} />
           <div>
-            <Trans i18nKey="help.wolf.moon-explain" defaults="At the end of the round, the player with the most visible moons scores <b>2 bonus points</b>. In case of a tie, nobody scores the bonus." components={{ b: <strong css={effectBoldCss} /> }} />
+            <Trans i18nKey="help.wolf.moon-explain" components={{ b: <strong css={effectBoldCss} /> }} />
           </div>
         </div>
       )}
@@ -87,13 +87,12 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
           <div>
             <Trans
               i18nKey="help.wolf.corner-triple"
-              defaults="If this card is in one of the 4 corners of the panorama at the end of the round, its value counts <b>triple</b> (= {tripled}) for the row battle."
               values={{ tripled: value! * 3 }}
               components={{ b: <strong css={effectBoldCss} /> }}
             />
             {value! <= 2 && (
               <p css={effectNoteCss}>
-                {t('help.wolf.corner-triple.cover', 'It must still be covered by a value {coverValue}, even in a corner.', { coverValue: value! + 1 })}
+                {t('help.wolf.corner-triple.cover', { coverValue: value! + 1 })}
               </p>
             )}
           </div>
@@ -104,9 +103,9 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
         <div css={effectBoxWithIconCss}>
           <img src={isLight ? plus1Light : plus1Dark} alt="" css={effectIconCss} />
           <div>
-            <Trans i18nKey="help.wolf.bonus-point" defaults="If you win a row containing this card, it scores <b>2 points</b> instead of 1 (1 normal + 1 bonus)." components={{ b: <strong css={effectBoldCss} /> }} />
+            <Trans i18nKey="help.wolf.bonus-point" components={{ b: <strong css={effectBoldCss} /> }} />
             <p css={effectNoteCss}>
-              <Trans i18nKey="help.wolf.bonus-point.copies" defaults="Each player has <b>2 copies</b> of this card." components={{ b: <strong css={effectBoldCss} /> }} />
+              <Trans i18nKey="help.wolf.bonus-point.copies" components={{ b: <strong css={effectBoldCss} /> }} />
             </p>
           </div>
         </div>
@@ -114,36 +113,36 @@ export const WolfCardHelp: FC<MaterialHelpProps> = ({ item, itemIndex, closeDial
 
       {!isHidden && value === 5 && (
         <p css={textCss}>
-          {t('help.wolf.uncoverable', 'Cannot be covered by the opponent (no card with value {next} exists{unless}).', {
+          {t('help.wolf.uncoverable', {
             next: 6,
-            unless: lone ? '' : t('help.wolf.uncoverable.unless', ', unless through the Lone Wolf value 6')
+            unless: lone ? '' : t('help.wolf.uncoverable.unless')
           })}
         </p>
       )}
 
       {!isHidden && value === 6 && (
         <p css={textCss}>
-          {t('help.wolf.uncoverable', 'Cannot be covered by the opponent (no card with value {next} exists{unless}).', { next: 7, unless: '' })}
+          {t('help.wolf.uncoverable', { next: 7, unless: '' })}
         </p>
       )}
 
       {!isHidden && !effect && moons === 0 && !lone && value !== 5 && (
-        <p css={textCss}>{t('help.wolf.no-effect', 'No special effect. Its value counts toward the row battle.')}</p>
+        <p css={textCss}>{t('help.wolf.no-effect')}</p>
       )}
 
       <div css={rulesSectionCss}>
-        <div css={rulesTitleCss}>{t('help.wolf.rules.title', 'Placement rules')}</div>
+        <div css={rulesTitleCss}>{t('help.wolf.rules.title')}</div>
         <p css={rulesTextCss}>
-          <Trans i18nKey="help.wolf.rules.grid" defaults="Cards are placed on a grid that grows up to a <b>4×3 or 3×4</b> rectangle." components={{ b: <strong css={effectBoldCss} /> }} />
+          <Trans i18nKey="help.wolf.rules.grid" components={{ b: <strong css={effectBoldCss} /> }} />
         </p>
         <p css={rulesTextCss}>
-          <Trans i18nKey="help.wolf.rules.cover" defaults="You can cover an opponent's wolf by placing a card with exactly <b>+1 value</b> on top. The covered card is hidden and no longer counts." components={{ b: <strong css={effectBoldCss} /> }} />
+          <Trans i18nKey="help.wolf.rules.cover" components={{ b: <strong css={effectBoldCss} /> }} />
         </p>
         <p css={rulesTextCss}>
-          <Trans i18nKey="help.wolf.rules.row" defaults="Each row is a battle: the player with the <b>highest total value</b> wins the row and recovers their visible cards." components={{ b: <strong css={effectBoldCss} /> }} />
+          <Trans i18nKey="help.wolf.rules.row" components={{ b: <strong css={effectBoldCss} /> }} />
         </p>
         <p css={rulesTextCss}>
-          <Trans i18nKey="help.wolf.rules.scoring" defaults="Each recovered card = <b>1 point</b>. Value 3 cards with the +1 icon = <b>2 points</b>." components={{ b: <strong css={effectBoldCss} /> }} />
+          <Trans i18nKey="help.wolf.rules.scoring" components={{ b: <strong css={effectBoldCss} /> }} />
         </p>
       </div>
 

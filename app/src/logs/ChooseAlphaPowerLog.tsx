@@ -27,11 +27,11 @@ export const ChooseAlphaPowerLog: FC<MoveComponentProps<MaterialMove>> = ({ move
     <span>
       <span css={pickMarkerCss}>{'\u25C6'}</span>
       <span css={playerNameCss(player)}>{name}</span>
-      {' '}{t('log.choose-alpha-power.verb', 'chooses')}{' '}
+      {' '}{t('log.choose-alpha-power.verb')}{' '}
       {openHelp ? (
         <span css={powerLinkCss} onClick={openHelp}>{powerName}</span>
       ) : (
-        <span css={powerNameCss}>{t('log.choose-alpha-power.fallback', 'an Alpha Power')}</span>
+        <span css={powerNameCss}>{t('log.choose-alpha-power.fallback')}</span>
       )}
     </span>
   )
