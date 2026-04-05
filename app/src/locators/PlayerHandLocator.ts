@@ -4,7 +4,7 @@ import { RuleId } from '@gamepark/moonlight/rules/RuleId'
 import { HandLocator, ItemContext, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialGame, MaterialItem, MaterialRules } from '@gamepark/rules-api'
 
-const CARD_ANATOMY_STEP = 2
+const CARD_EFFECTS_STEP = 5
 
 class PlayerHandLocator extends HandLocator {
   game?: MaterialGame
@@ -40,13 +40,13 @@ class PlayerHandLocator extends HandLocator {
 
   getGapMaxAngle(location: Location, context: MaterialContext): number {
     const tutorial = context.rules.game.tutorial
-    if (tutorial?.step === CARD_ANATOMY_STEP) return 4
+    if (tutorial?.step === CARD_EFFECTS_STEP) return 4
     return super.getGapMaxAngle(location, context)
   }
 
   getMaxAngle(location: Location, context: MaterialContext): number {
     const tutorial = context.rules.game.tutorial
-    if (tutorial?.step === CARD_ANATOMY_STEP) return 16
+    if (tutorial?.step === CARD_EFFECTS_STEP) return 16
     return super.getMaxAngle(location, context)
   }
 

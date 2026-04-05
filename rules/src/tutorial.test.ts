@@ -107,17 +107,17 @@ describe('Tutorial flow', () => {
     const game = createTutorialGame()
     const rules = new MoonlightRules(game)
 
-    // Step 3: Light places any card EXCEPT LightWolfMoon2 at (0,0)
+    // Step 3: Light places LightWolf1 at (0,0)
     const placeFirst = findMove(rules, PlayerColor.Light, (m) =>
       isMoveItemType(MaterialType.WolfCard)(m) &&
       m.location.type === LocationType.PlayArea &&
       m.location.x === 0 && m.location.y === 0 &&
-      rules.game.items[MaterialType.WolfCard]![m.itemIndex]?.id?.front !== WolfCard.LightWolfMoon2
+      rules.game.items[MaterialType.WolfCard]![m.itemIndex]?.id?.front === WolfCard.LightWolf1
     )
     playConsequences(rules, placeFirst)
     expect(rules.game.rule?.player).toBe(PlayerColor.Dark)
 
-    // Step 5: Dark places DarkWolf1 at (1,0)
+    // Step 4: Dark places DarkWolf1 at (1,0)
     const darkPlace1 = findMove(rules, PlayerColor.Dark, (m) =>
       isMoveItemType(MaterialType.WolfCard)(m) &&
       m.location.type === LocationType.PlayArea &&
@@ -127,17 +127,17 @@ describe('Tutorial flow', () => {
     playConsequences(rules, darkPlace1)
     expect(rules.game.rule?.player).toBe(PlayerColor.Light)
 
-    // Step 6: Light places any card on ground EXCEPT value 2 (need it for stacking)
+    // Step 7: Light places LightWolf3 on ground
     const placeGround = findMove(rules, PlayerColor.Light, (m) =>
       isMoveItemType(MaterialType.WolfCard)(m) &&
       m.location.type === LocationType.PlayArea &&
       (m.location.z ?? 0) === 0 &&
-      rules.game.items[MaterialType.WolfCard]![m.itemIndex]?.id?.front !== WolfCard.LightWolfMoon2
+      rules.game.items[MaterialType.WolfCard]![m.itemIndex]?.id?.front === WolfCard.LightWolf3
     )
     playConsequences(rules, placeGround)
     expect(rules.game.rule?.player).toBe(PlayerColor.Dark)
 
-    // Step 7: Dark places DarkWolfMoon2 somewhere
+    // Step 8: Dark places DarkWolfMoon2 somewhere
     const darkPlace2 = findMove(rules, PlayerColor.Dark, (m) =>
       isMoveItemType(MaterialType.WolfCard)(m) &&
       m.location.type === LocationType.PlayArea &&
@@ -146,8 +146,7 @@ describe('Tutorial flow', () => {
     playConsequences(rules, darkPlace2)
     expect(rules.game.rule?.player).toBe(PlayerColor.Light)
 
-    // Step 8: Light stacks on (1,0) with a value 2 card
-    // Step 8: Light stacks on (1,0) with a value 2 card
+    // Step 10: Light stacks on (1,0) with a value 2 card
     const stackMove = findMove(rules, PlayerColor.Light, (m) =>
       isMoveItemType(MaterialType.WolfCard)(m) &&
       m.location.type === LocationType.PlayArea &&
