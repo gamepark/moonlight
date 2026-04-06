@@ -123,7 +123,31 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
       })
     },
 
-    // 7. Place Wolf3 — focus Wolf3 card + play area, popup above
+    // 7. Explain bonus point icon — focus +1 icon on Wolf3 in hand, popup above
+    // Hand: [WolfMoon2, Wolf3, Wolf4]
+    {
+      popup: {
+        text: () => <Trans i18nKey="tuto.bonus-point" components={{ b: <strong/> }} />,
+        position: { x: -20, y: -10 }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.LightWolf3)
+        ],
+        locations: [
+          {
+            type: LocationType.CardEffectZone,
+            parent: this.material(game, MaterialType.WolfCard)
+              .id<CardId>((id) => id.front === WolfCard.LightWolf3)
+              .getIndex()
+          }
+        ],
+        margin: { top: 15, bottom: 2, left: 2, right: 2 },
+        highlight: true
+      })
+    },
+
+    // 8. Place Wolf3 — focus Wolf3 card + play area, popup above
     // Hand: [WolfMoon2, Wolf3, Wolf4]
     {
       popup: {
