@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
 import { LocationType } from '@gamepark/moonlight/material/LocationType'
-import { WolfCard } from '@gamepark/moonlight/material/WolfCard'
+import { MaterialType } from '@gamepark/moonlight/material/MaterialType'
+import { CardId, WolfCard } from '@gamepark/moonlight/material/WolfCard'
 import { PlayerColor } from '@gamepark/moonlight/PlayerColor'
 import { MaterialTutorial, TutorialStep } from '@gamepark/react-game'
 import { isMoveItemType } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
-import { TutorialSetup } from './TutorialSetup'
 import MountainLight from '../images/tokens/MountainBottomLight.png'
+import { TutorialSetup } from './TutorialSetup'
 
 const me = PlayerColor.Light
 const opponent = PlayerColor.Dark
@@ -16,16 +16,13 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
   version = 8
   options = { players: [{ id: me }, { id: opponent }] }
   setup = new TutorialSetup()
-  players = [
-    { id: me },
-    { id: opponent, name: 'Fenrir' }
-  ]
+  players = [{ id: me }, { id: opponent, name: 'Fenrir' }]
 
   steps: TutorialStep<PlayerColor, MaterialType, LocationType>[] = [
     // 1. Lore intro — no focus, centered popup
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.lore-intro" components={{ b: <strong/> }} />
+        text: () => <Trans i18nKey="tuto.lore-intro" components={{ b: <strong /> }} />
       }
     },
 
@@ -33,7 +30,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // Hand: [Wolf1, WolfMoon2, Wolf3]
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.hand" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.hand" components={{ b: <strong /> }} />,
         position: { y: -15 }
       },
       focus: (game) => ({
@@ -47,11 +44,11 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // Hand: [Wolf1, WolfMoon2, Wolf3]
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.place-first" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.place-first" components={{ b: <strong /> }} />,
         position: { y: -18 }
       },
       focus: (game) => ({
-        materials: [this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolf1)],
+        materials: [this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.LightWolf1)],
         locations: [{ type: LocationType.PlayArea, x: 0, y: 0 }],
         margin: { top: 15, bottom: 2, left: 5, right: 5 },
         highlight: true
@@ -61,7 +58,8 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
         filter: (move, game) =>
           isMoveItemType(MaterialType.WolfCard)(move) &&
           move.location.type === LocationType.PlayArea &&
-          move.location.x === 0 && move.location.y === 0 &&
+          move.location.x === 0 &&
+          move.location.y === 0 &&
           game.items[MaterialType.WolfCard]![move.itemIndex]?.id?.front === WolfCard.LightWolf1
       }
     },
@@ -84,7 +82,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // Play area: Wolf1(0,0) + DarkWolf1(1,0)
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.panorama" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.panorama" components={{ b: <strong /> }} />,
         position: { y: 15 }
       },
       focus: (game) => ({
@@ -98,17 +96,27 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // Play area: Wolf1(0,0) + DarkWolf1(1,0)
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.effects" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.effects" components={{ b: <strong /> }} />,
         position: { y: 15 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolf1),
-          this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.DarkWolf1)
+          this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.LightWolf1),
+          this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.DarkWolf1)
         ],
         locations: [
-          { type: LocationType.CardEffectZone, parent: this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolf1).getIndex() },
-          { type: LocationType.CardEffectZone, parent: this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.DarkWolf1).getIndex() }
+          {
+            type: LocationType.CardEffectZone,
+            parent: this.material(game, MaterialType.WolfCard)
+              .id<CardId>((id) => id.front === WolfCard.LightWolf1)
+              .getIndex()
+          },
+          {
+            type: LocationType.CardEffectZone,
+            parent: this.material(game, MaterialType.WolfCard)
+              .id<CardId>((id) => id.front === WolfCard.DarkWolf1)
+              .getIndex()
+          }
         ],
         margin: { top: 2, bottom: 15, left: 2, right: 2 },
         highlight: true
@@ -119,12 +127,12 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // Hand: [WolfMoon2, Wolf3, Wolf4]
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.place-second" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.place-second" components={{ b: <strong /> }} />,
         position: { y: -18 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolf3),
+          this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.LightWolf3),
           this.material(game, MaterialType.WolfCard).location(LocationType.PlayArea)
         ],
         margin: { top: 15, bottom: 2, left: 5, right: 5 },
@@ -157,7 +165,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // Hand: [WolfMoon2, Wolf4, WolfMoon1] (Wolf3 posé, WolfMoon1 pioché)
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.stacking-explain" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.stacking-explain" components={{ b: <strong /> }} />,
         position: { y: 15 }
       },
       focus: (game) => ({
@@ -170,12 +178,12 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 10. Stack WolfMoon2 on DarkWolf1 — focus WolfMoon2 + play area, popup above
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.stacking-do" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.stacking-do" components={{ b: <strong /> }} />,
         position: { y: -18 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolfMoon2),
+          this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.LightWolfMoon2),
           this.material(game, MaterialType.WolfCard).location(LocationType.PlayArea)
         ],
         margin: { top: 18, bottom: 2, left: 5, right: 5 },
@@ -186,7 +194,8 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
         filter: (move) =>
           isMoveItemType(MaterialType.WolfCard)(move) &&
           move.location.type === LocationType.PlayArea &&
-          move.location.x === 1 && move.location.y === 0 &&
+          move.location.x === 1 &&
+          move.location.y === 0 &&
           (move.location.z ?? 0) > 0
       }
     },
@@ -194,7 +203,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 11. Scoring — focus play area, popup below
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.scoring" components={{ b: <strong/> }} />,
+        text: () => <Trans i18nKey="tuto.scoring" components={{ b: <strong /> }} />,
         position: { y: 15 }
       },
       focus: (game) => ({
@@ -207,14 +216,19 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     // 12. Win condition — mountain image in popup, no focus
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.win-and-beyond" components={{ b: <strong/>, mountain: <img src={MountainLight} alt="" style={{ height: '2em', verticalAlign: 'middle' }}/> }} />
+        text: () => (
+          <Trans
+            i18nKey="tuto.win-and-beyond"
+            components={{ b: <strong />, mountain: <img src={MountainLight} alt="" style={{ height: '2em', verticalAlign: 'middle' }} /> }}
+          />
+        )
       }
     },
 
     // 13. Good luck — no focus, centered popup
     {
       popup: {
-        text: () => <Trans i18nKey="tuto.good-luck" components={{ b: <strong/> }} />
+        text: () => <Trans i18nKey="tuto.good-luck" components={{ b: <strong /> }} />
       }
     }
   ]

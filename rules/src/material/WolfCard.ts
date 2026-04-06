@@ -1,6 +1,8 @@
 import { getEnumValues } from '@gamepark/rules-api'
 import { PlayerColor } from '../PlayerColor'
 
+export type CardId = { front?: WolfCard, back: PlayerColor }
+
 export enum WolfCard {
   LightWolf1 = 101,
   LightWolf2 = 102,
