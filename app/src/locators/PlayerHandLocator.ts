@@ -4,8 +4,6 @@ import { RuleId } from '@gamepark/moonlight/rules/RuleId'
 import { HandLocator, ItemContext, MaterialContext } from '@gamepark/react-game'
 import { Location, MaterialGame, MaterialItem, MaterialRules } from '@gamepark/rules-api'
 
-const CARD_EFFECTS_STEP = 5
-
 class PlayerHandLocator extends HandLocator {
   game?: MaterialGame
   shifted = false
@@ -32,22 +30,9 @@ class PlayerHandLocator extends HandLocator {
     if (ruleId === RuleId.EndOfRound || ruleId === RuleId.ViewRoundResults) {
       this.shifted = true
     } else {
-      const hasWonCards = rules.material(MaterialType.WolfCard)
-        .location(LocationType.WonCards).length > 0
+      const hasWonCards = rules.material(MaterialType.WolfCard).location(LocationType.WonCards).length > 0
       this.shifted = hasWonCards
     }
-  }
-
-  getGapMaxAngle(location: Location, context: MaterialContext): number {
-    const tutorial = context.rules.game.tutorial
-    if (tutorial?.step === CARD_EFFECTS_STEP) return 4
-    return super.getGapMaxAngle(location, context)
-  }
-
-  getMaxAngle(location: Location, context: MaterialContext): number {
-    const tutorial = context.rules.game.tutorial
-    if (tutorial?.step === CARD_EFFECTS_STEP) return 16
-    return super.getMaxAngle(location, context)
   }
 
   getHoverTransform(item: MaterialItem, context: ItemContext): string[] {

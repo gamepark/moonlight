@@ -94,23 +94,23 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
       })
     },
 
-    // 6. Explain card effects — focus hand + highlight moon/effect zones, popup above
-    // Hand: [WolfMoon2, Wolf3, Wolf4]
+    // 6. Explain card effects — focus x3 icon on both value-1 cards in panorama, popup above
+    // Play area: Wolf1(0,0) + DarkWolf1(1,0)
     {
       popup: {
         text: () => <Trans i18nKey="tuto.effects" components={{ b: <strong/> }} />,
-        position: { y: -15 }
+        position: { y: 15 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolfMoon2),
-          this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolf3)
+          this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolf1),
+          this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.DarkWolf1)
         ],
         locations: [
-          { type: LocationType.CardMoonZone, parent: this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolfMoon2).getIndex() },
-          { type: LocationType.CardEffectZone, parent: this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolf3).getIndex() }
+          { type: LocationType.CardEffectZone, parent: this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.LightWolf1).getIndex() },
+          { type: LocationType.CardEffectZone, parent: this.material(game, MaterialType.WolfCard).id((id: any) => id.front === WolfCard.DarkWolf1).getIndex() }
         ],
-        margin: { top: 15, bottom: 2, left: 2, right: 2 },
+        margin: { top: 2, bottom: 15, left: 2, right: 2 },
         highlight: true
       })
     },

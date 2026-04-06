@@ -131,7 +131,7 @@
   "tuto.hand": "Voici votre main. Chaque carte est un <b>loup</b> avec une <b>valeur</b> (1 à 5).\nVous les utiliserez pour conquérir le territoire sur le champ de bataille.",
   "tuto.place-first": "Placez votre <b>loup de valeur 1</b> sur le champ de bataille.",
   "tuto.panorama": "Votre adversaire a joué à côté de votre loup.\nEnsemble, les cartes forment le <b>panorama</b> — un territoire rectangulaire qui grandit jusqu'à <b>4×3 ou 3×4</b>.\nChaque ligne sera une bataille en fin de manche.",
-  "tuto.effects": "Certaines cartes ont des icônes spéciales.\nLa <b>lune</b> compte pour le bonus de majorité de lunes.\nL''icône <b>+1</b> signifie que la carte rapporte un point bonus si vous gagnez sa ligne.\nCliquez sur une carte pour en savoir plus sur ses effets !",
+  "tuto.effects": "Certaines cartes ont des icônes spéciales.\nPar exemple, ces 2 cartes sur le champ de bataille <b>triplent leur valeur si elles sont dans un coin du panorama</b> à la fin de la manche.\nVous pouvez toujours cliquer sur une carte pour retrouver cette information plus tard.",
   "tuto.place-second": "Placez maintenant votre <b>loup de valeur 3</b> adjacent à une carte existante.",
   "tuto.stacking-explain": "Vous pouvez <b>recouvrir</b> un loup adverse en posant une carte de valeur exactement <b>+1</b> par-dessus !\nLe loup recouvert ne compte plus.\nAttention, vous <b>ne pouvez pas recouvrir</b> le <b>dernier loup visible</b> de l''adversaire.",
   "tuto.stacking-do": "Placez votre <b>loup de valeur 2</b> sur le <b>loup adverse de valeur 1</b> pour prendre le contrôle de cet emplacement.",

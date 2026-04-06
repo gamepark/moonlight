@@ -134,7 +134,7 @@
   "tuto.hand": "This is your hand. Each card is a <b>wolf</b> with a <b>value</b> (1 to 5).\nYou'll use them to claim territory on the battlefield.",
   "tuto.place-first": "Place your <b>value 1 wolf</b> on the battlefield.",
   "tuto.panorama": "Your opponent played next to your wolf.\nTogether, the cards form the <b>panorama</b> — a rectangular territory that grows up to <b>4×3 or 3×4</b>.\nEach row will be a battle at the end of the round.",
-  "tuto.effects": "Some cards have special icons.\nThe <b>moon</b> counts toward the moon majority bonus.\nThe <b>+1</b> icon means the card scores a bonus point when you win its row.\nClick on any card to learn more about its effects!",
+  "tuto.effects": "Some cards have special icons.\nFor example, these 2 cards on the battlefield <b>triple their value if they are in a corner of the panorama</b> at the end of the round.\nYou can always click on a card to find this information later.",
   "tuto.place-second": "Now place your <b>value 3 wolf</b> adjacent to an existing card.",
   "tuto.stacking-explain": "You can <b>cover</b> an opponent's wolf by placing a card with exactly <b>+1 value</b> on top!\nThe covered wolf no longer counts.\nHowever, you <b>cannot cover</b> the opponent's <b>last visible wolf</b>.",
   "tuto.stacking-do": "Place your <b>value 2 wolf</b> on the opponent's <b>value 1 wolf</b> to take control of that spot.",
