@@ -288,7 +288,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
       }
     },
 
-    // 12. Win condition — mountain image in popup, no focus
+    // Win condition — mountain image in popup, no focus
     {
       popup: {
         text: () => (
@@ -298,6 +298,36 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
           />
         )
       }
+    },
+
+    // Lone wolves — focus lone wolf deck, popup above
+    {
+      popup: {
+        text: () => <Trans i18nKey="tuto.lone-wolves" components={{ b: <strong /> }} />,
+        position: { x: 30 }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.WolfCard).location(l => l.type === LocationType.LoneWolfDeck && l.player === me)
+        ],
+        margin: { top: 2, bottom: 2, left: 2, right: 20 },
+        highlight: true
+      })
+    },
+
+    // Alpha powers — focus alpha power area, popup above
+    {
+      popup: {
+        text: () => <Trans i18nKey="tuto.alpha-powers" components={{ b: <strong /> }} />,
+        position: { y: 20 }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.AlphaPowerCard).location(LocationType.AlphaPowerArea)
+        ],
+        margin: { top: 2, bottom: 2, left: 2, right: 2 },
+        highlight: true
+      })
     },
 
     // 13. Good luck — no focus, centered popup
