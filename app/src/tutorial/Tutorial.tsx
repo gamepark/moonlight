@@ -152,14 +152,14 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
     {
       popup: {
         text: () => <Trans i18nKey="tuto.place-second" components={{ b: <strong /> }} />,
-        position: { y: -18 }
+        position: { x: -40, y: -15 }
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.LightWolf3),
           this.material(game, MaterialType.WolfCard).location(LocationType.PlayArea)
         ],
-        margin: { top: 15, bottom: 2, left: 5, right: 5 },
+        margin: { top: 10, bottom: 2, left: 5, right: 5 },
         highlight: true
       }),
       move: {
@@ -224,7 +224,7 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
       }
     },
 
-    // 11. Scoring — focus play area, popup below
+    // 11. Scoring: round end condition — focus play area, popup below
     {
       popup: {
         text: () => <Trans i18nKey="tuto.scoring" components={{ b: <strong /> }} />,
@@ -235,6 +235,57 @@ export class MoonlightTutorial extends MaterialTutorial<PlayerColor, MaterialTyp
         margin: { top: 2, bottom: 15, left: 5, right: 5 },
         highlight: true
       })
+    },
+
+    // 12. Scoring: moon majority — focus moon icons on all moon cards in hand, popup above
+    // Hand: [Wolf4, WolfMoon1, WolfMoon3]
+    {
+      popup: {
+        text: () => <Trans i18nKey="tuto.scoring-moons" components={{ b: <strong /> }} />,
+        position: { y: -15 }
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.LightWolfMoon1),
+          this.material(game, MaterialType.WolfCard).id<CardId>((id) => id.front === WolfCard.LightWolfMoon3)
+        ],
+        locations: [
+          {
+            type: LocationType.CardMoonZone,
+            parent: this.material(game, MaterialType.WolfCard)
+              .id<CardId>((id) => id.front === WolfCard.LightWolfMoon1)
+              .getIndex()
+          },
+          {
+            type: LocationType.CardMoonZone,
+            parent: this.material(game, MaterialType.WolfCard)
+              .id<CardId>((id) => id.front === WolfCard.LightWolfMoon3)
+              .getIndex()
+          }
+        ],
+        margin: { top: 15, bottom: 2, left: 2, right: 2 },
+        highlight: true
+      })
+    },
+
+    // 13. Scoring: row battles — focus play area, popup below
+    {
+      popup: {
+        text: () => <Trans i18nKey="tuto.scoring-rows" components={{ b: <strong /> }} />,
+        position: { y: 15 }
+      },
+      focus: (game) => ({
+        materials: [this.material(game, MaterialType.WolfCard).location(LocationType.PlayArea)],
+        margin: { top: 2, bottom: 15, left: 5, right: 5 },
+        highlight: true
+      })
+    },
+
+    // 14. Scoring: round winner — no focus
+    {
+      popup: {
+        text: () => <Trans i18nKey="tuto.scoring-winner" components={{ b: <strong /> }} />
+      }
     },
 
     // 12. Win condition — mountain image in popup, no focus

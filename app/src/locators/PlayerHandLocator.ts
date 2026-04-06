@@ -8,6 +8,8 @@ class PlayerHandLocator extends HandLocator {
   game?: MaterialGame
   shifted = false
 
+  gapMaxAngle = 3.5
+
   getCoordinates(location: Location, context: MaterialContext) {
     const { rules, player } = context
     const y = this.shifted ? 21 : 14
