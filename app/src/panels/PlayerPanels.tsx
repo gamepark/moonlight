@@ -12,6 +12,7 @@ import MountainBottomDark from '../images/tokens/MountainBottomDark.png'
 import MountainBottomLight from '../images/tokens/MountainBottomLight.png'
 import moonLightIcon from '../images/icon/moon-light.jpg'
 import moonDarkIcon from '../images/icon/moon-dark.jpg'
+import tutoAvatar from '../images/icon/tuto-avatar.jpg'
 
 const playPhases = new Set([RuleId.PlaceCard, RuleId.DrawCard, RuleId.EndOfTurn, RuleId.PlaceSecondCard, RuleId.MovePile])
 
@@ -21,6 +22,7 @@ export const PlayerPanels = () => {
   const game = useGame<MaterialGame>()
   const currentRule = game?.rule?.id as RuleId | undefined
   const isPlayPhase = currentRule !== undefined && playPhases.has(currentRule)
+  const isTutorial = game?.tutorial !== undefined
   const frozenMoons = useRef<Record<number, number>>({})
 
   // Compute live moon counts during play phases
@@ -58,7 +60,7 @@ export const PlayerPanels = () => {
               value: moonCount,
               imageCss: moonIconCss
             }]}
-            css={[panelPosition, index === 0 ? leftPlayer : rightPlayer, bgBottomCss]}
+            css={[panelPosition, index === 0 ? leftPlayer : rightPlayer, bgBottomCss, isTutorial && !isLight && tutoAvatarCss]}
           />
         )
       })}
@@ -88,4 +90,24 @@ const bgBottomCss = css`
 const moonIconCss = css`
   border-radius: 50%;
   transform: scale(0.85);
+`
+
+const tutoAvatarCss = css`
+  & > div:first-of-type {
+    visibility: hidden;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: -0.4em;
+    left: -0.3em;
+    height: 6.6em;
+    width: 6.6em;
+    background: url(${tutoAvatar}) center / cover no-repeat;
+    border: 0.3em solid #1a4040;
+    border-radius: 50%;
+    box-shadow: 0 0 0.4em black, inset 0 0 0.3em rgba(0, 0, 0, 0.5);
+    z-index: 4;
+    pointer-events: none;
+  }
 `
