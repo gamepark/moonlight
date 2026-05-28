@@ -32,6 +32,10 @@ export enum WolfCard {
   DarkLoneWolf6 = 226
 }
 
+export const wolfColor = (wolf: WolfCard): PlayerColor => Math.floor(wolf / 100)
+export const wolfValue = (wolf: WolfCard) => wolf % 10
+export const isLoneWolf = (wolf: WolfCard) => wolf % 100 > 20
+
 // Wolves with a value of 3 comes in 2 copies each
 export const getWolves = () => getEnumValues(WolfCard).concat(getEnumValues(WolfCard).filter((wolf) => wolfValue(wolf) === 3))
 export const lightWolfCards = getWolves().filter((card) => card < WolfCard.DarkWolf1)
@@ -41,10 +45,6 @@ export enum WolfEffect {
   CornerTriplesValue = 1,
   BonusPoint
 }
-
-export const wolfColor = (wolf: WolfCard): PlayerColor => Math.floor(wolf / 100)
-export const wolfValue = (wolf: WolfCard) => wolf % 10
-export const isLoneWolf = (wolf: WolfCard) => wolf % 100 > 20
 
 const wolfMoonsMap: Partial<Record<WolfCard, number>> = {
   [WolfCard.LightWolfMoon1]: 1,
