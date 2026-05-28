@@ -34,8 +34,8 @@ export enum WolfCard {
 
 // Wolves with a value of 3 comes in 2 copies each
 export const getWolves = () => getEnumValues(WolfCard).concat(getEnumValues(WolfCard).filter((wolf) => wolfValue(wolf) === 3))
-export const lightWolfCards = getEnumValues(WolfCard).filter((card) => card < WolfCard.DarkWolf1)
-export const darkWolfCards = getEnumValues(WolfCard).filter((card) => card >= WolfCard.DarkWolf1)
+export const lightWolfCards = getWolves().filter((card) => card < WolfCard.DarkWolf1)
+export const darkWolfCards = getWolves().filter((card) => card >= WolfCard.DarkWolf1)
 
 export enum WolfEffect {
   CornerTriplesValue = 1,
