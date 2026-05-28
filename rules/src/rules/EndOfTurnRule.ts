@@ -1,6 +1,7 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { PlayerColor } from '../PlayerColor'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 import { PlayAreaHelper } from './helper/PlayAreaHelper'
@@ -17,12 +18,18 @@ export class EndOfTurnRule extends PlayerTurnRule {
       return [this.startRule(RuleId.EndOfRound)]
     }
 
-    // 3. Current player has no more cards → trigger end, opponent gets one more turn
+    // 3. Current player has no more cards → finish the current game turn
     const hand = this.material(MaterialType.WolfCard).location(LocationType.PlayerHand).player(this.player)
     const deck = this.material(MaterialType.WolfCard).location(LocationType.WolfDeck).player(this.player)
     if (hand.length === 0 && deck.length === 0) {
-      this.memorize(Memory.EndTriggered, true)
-      return [this.startPlayerTurn(RuleId.PlaceCard, this.nextPlayer)]
+      const firstPlayer = this.remind<PlayerColor>(Memory.FirstPlayer)
+      if (this.player === firstPlayer) {
+        // First player ran out → opponent still plays this game turn, then end
+        this.memorize(Memory.EndTriggered, true)
+        return [this.startPlayerTurn(RuleId.PlaceCard, this.nextPlayer)]
+      }
+      // Second player ran out → game turn complete, end round immediately
+      return [this.startRule(RuleId.EndOfRound)]
     }
 
     // 4. Normal → next player's turn
