@@ -91,6 +91,7 @@ export class ScoringHelper extends MaterialRulesPart {
     for (const [, info] of this.visibleCards) {
       if (info.owner === this.opponent) count += wolfMoons(info.front)
     }
+    count += new AlphaPowerHelper(this.game, this.opponent).extraMoons
     return count
   }
 
