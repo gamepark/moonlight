@@ -114,6 +114,14 @@ export class EndOfRoundRule extends PlayerTurnRule {
 
     if (winner === undefined) {
       this.forget(Memory.RoundWinner)
+      // Tie that cannot be broken: the player who did NOT start the current round starts the next one
+      const currentFirstPlayer = this.remind<PlayerColor>(Memory.FirstPlayer)
+      if (currentFirstPlayer !== undefined) {
+        this.memorize(
+          Memory.FirstPlayer,
+          currentFirstPlayer === PlayerColor.Light ? PlayerColor.Dark : PlayerColor.Light
+        )
+      }
       moves.push(this.startSimultaneousRule(RuleId.ViewRoundResults))
       return moves
     }
