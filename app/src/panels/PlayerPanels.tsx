@@ -2,6 +2,7 @@
 import { css } from '@emotion/react'
 import { MoonlightRules } from '@gamepark/moonlight/MoonlightRules'
 import { PlayerColor } from '@gamepark/moonlight/PlayerColor'
+import { Memory, RoundResultsData } from '@gamepark/moonlight/rules/Memory'
 import { RuleId } from '@gamepark/moonlight/rules/RuleId'
 import { ScoringHelper } from '@gamepark/moonlight/rules/helper/ScoringHelper'
 import { StyledPlayerPanel, useGame, usePlayers, useRules } from '@gamepark/react-game'
@@ -16,14 +17,24 @@ import tutoAvatar from '../images/icon/tuto-avatar.jpg'
 
 const playPhases = new Set([RuleId.PlaceCard, RuleId.DrawCard, RuleId.EndOfTurn, RuleId.PlaceSecondCard, RuleId.MovePile])
 
+// Phases where the round is over but its final moon counts must keep showing
+const resultPhases = new Set([RuleId.EndOfRound, RuleId.ViewRoundResults])
+
 export const PlayerPanels = () => {
   const players = usePlayers({ sortFromMe: true })
   const rules = useRules<MoonlightRules>()
   const game = useGame<MaterialGame>()
   const currentRule = game?.rule?.id as RuleId | undefined
   const isPlayPhase = currentRule !== undefined && playPhases.has(currentRule)
+  const isResultPhase = currentRule !== undefined && resultPhases.has(currentRule)
   const isTutorial = game?.tutorial !== undefined
   const frozenMoons = useRef<Record<number, number>>({})
+
+  // During result phases, read the authoritative final moon counts stored at round end.
+  // The card that ends the round can trigger EndOfRound synchronously, so no play-phase
+  // render ever captures it into frozenMoons — RoundResults is computed server-side before
+  // the won cards leave the play area, so it always reflects the last card played.
+  const roundResults = isResultPhase && rules ? rules.remind<RoundResultsData>(Memory.RoundResults) : undefined
 
   // Compute live moon counts during play phases
   const liveMoons: Record<number, number> = {}
@@ -49,7 +60,10 @@ export const PlayerPanels = () => {
     <>
       {players.map((player, index) => {
         const isLight = player.id === PlayerColor.Light
-        const moonCount = isPlayPhase ? (liveMoons[player.id] ?? 0) : (frozenMoons.current[player.id] ?? 0)
+        const resultMoons = roundResults ? (isLight ? roundResults.light.moons : roundResults.dark.moons) : undefined
+        const moonCount = isPlayPhase
+          ? (liveMoons[player.id] ?? 0)
+          : (resultMoons ?? frozenMoons.current[player.id] ?? 0)
         return (
           <StyledPlayerPanel
             key={player.id}
