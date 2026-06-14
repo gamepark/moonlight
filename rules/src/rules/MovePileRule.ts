@@ -122,9 +122,16 @@ export class MovePileRule extends PlayerTurnRule {
     if (!isMoveItemType(MaterialType.WolfCard)(move)) return []
     const phase = this.remind<string>(Memory.MovePilePhase)
 
+    // afterItemMove fires for EVERY MoveItem (the player's move AND the rule's own
+    // consequences) and the move object only carries the destination. Record here, while
+    // the card is still at its origin, WHERE it comes from so afterItemMove can tell:
+    //   - from the play area -> a pile move (phase 1) or its remaining-card consequences
+    //   - from the hand       -> the value 2 placement that ends phase 2
+    const item = this.material(MaterialType.WolfCard).getItem(move.itemIndex)
+    this.memorize(Memory.MovePileSource, item.location.type)
+
     if (phase !== 'place') {
       // Store the source position before moving the top card
-      const item = this.material(MaterialType.WolfCard).getItem(move.itemIndex)
       this.memorize(Memory.MovePilePhase, `moving:${item.location.x},${item.location.y}`)
     }
 
@@ -170,10 +177,18 @@ export class MovePileRule extends PlayerTurnRule {
       return moves
     }
 
-    // Phase 2 complete: value 2 card placed
-    this.forget(Memory.MovePilePhase)
+    // Phase 2 ends ONLY when the value 2 card is placed from the HAND. The pile's
+    // remaining cards (phase 1 consequences) also reach here as PlayArea -> PlayArea
+    // moves with phase 'place'; ignoring them prevents the rule from ending too early
+    // and leaving MovePilePhase = 'place' stuck for next time.
+    const source = this.remind<LocationType>(Memory.MovePileSource)
+    if (phase === 'place' && source === LocationType.PlayerHand) {
+      this.forget(Memory.MovePilePhase)
+      this.forget(Memory.MovePileSource)
+      return [this.startRule(RuleId.DrawCard)]
+    }
 
-    return [this.startRule(RuleId.DrawCard)]
+    return []
   }
 
   get hand() {

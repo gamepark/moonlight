@@ -7,7 +7,8 @@ export enum Memory {
   DarkMountains,
   MovePilePhase,
   RoundResults,
-  RoundHistory
+  RoundHistory,
+  MovePileSource
 }
 
 export type RowResult = {
