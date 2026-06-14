@@ -39,11 +39,27 @@ export class PlayAreaHelper extends MaterialRulesPart {
   static readonly MAX_SIZE = 4
   static readonly MAX_AREA = 12
 
+  /**
+   * Same size rule used everywhere a position can be added/moved: the grid may grow
+   * by one dimension at a time. The growing dimension must stay <= MAX_SIZE, and the
+   * resulting area (growing dimension * the other current dimension) must stay <= MAX_AREA.
+   */
+  static fitsGrid(currentWidth: number, currentHeight: number, newWidth: number, newHeight: number): boolean {
+    const { MAX_SIZE, MAX_AREA } = PlayAreaHelper
+    if (newWidth > currentWidth) {
+      return newWidth <= MAX_SIZE && newWidth * currentHeight <= MAX_AREA
+    }
+    if (newHeight > currentHeight) {
+      return newHeight <= MAX_SIZE && currentWidth * newHeight <= MAX_AREA
+    }
+    // No growth in either dimension: always fits.
+    return true
+  }
+
   availableSpaces() {
     const availableSpaces: Location[] = []
     const boundaries = this.outerSquareBoundaries
     const playedCards = this.playArea.getItems()
-    const { MAX_SIZE, MAX_AREA } = PlayAreaHelper
 
     if (playedCards.length === 0) {
       availableSpaces.push({ type: LocationType.PlayArea, x: 0, y: 0, z: 0 })
@@ -60,7 +76,7 @@ export class PlayAreaHelper extends MaterialRulesPart {
       const right = { x: playedCard.location.x! + 1, y: playedCard.location.y! }
       if (!playedCards.find((item) => isAnyCardToTheRight(item, coordinates))) {
         const newWidth = Math.max(boundaries.xMax, right.x) - boundaries.xMin + 1
-        if (newWidth <= MAX_SIZE && newWidth * currentHeight <= MAX_AREA) {
+        if (PlayAreaHelper.fitsGrid(currentWidth, currentHeight, newWidth, currentHeight)) {
           availableSpaces.push({ type: LocationType.PlayArea, x: right.x, y: right.y, z: 0 })
         }
       }
@@ -69,7 +85,7 @@ export class PlayAreaHelper extends MaterialRulesPart {
       const left = { x: playedCard.location.x! - 1, y: playedCard.location.y! }
       if (!playedCards.find((item) => isAnyCardToTheLeft(item, coordinates))) {
         const newWidth = boundaries.xMax - Math.min(boundaries.xMin, left.x) + 1
-        if (newWidth <= MAX_SIZE && newWidth * currentHeight <= MAX_AREA) {
+        if (PlayAreaHelper.fitsGrid(currentWidth, currentHeight, newWidth, currentHeight)) {
           availableSpaces.push({ type: LocationType.PlayArea, x: left.x, y: left.y, z: 0 })
         }
       }
@@ -78,7 +94,7 @@ export class PlayAreaHelper extends MaterialRulesPart {
       const below = { x: playedCard.location.x!, y: playedCard.location.y! + 1 }
       if (!playedCards.find((item) => isAnyCardBelow(item, coordinates))) {
         const newHeight = Math.max(boundaries.yMax, below.y) - boundaries.yMin + 1
-        if (newHeight <= MAX_SIZE && currentWidth * newHeight <= MAX_AREA) {
+        if (PlayAreaHelper.fitsGrid(currentWidth, currentHeight, currentWidth, newHeight)) {
           availableSpaces.push({ type: LocationType.PlayArea, x: below.x, y: below.y, z: 0 })
         }
       }
@@ -87,7 +103,7 @@ export class PlayAreaHelper extends MaterialRulesPart {
       const above = { x: playedCard.location.x!, y: playedCard.location.y! - 1 }
       if (!playedCards.find((item) => isAnyCardAbove(item, coordinates))) {
         const newHeight = boundaries.yMax - Math.min(boundaries.yMin, above.y) + 1
-        if (newHeight <= MAX_SIZE && currentWidth * newHeight <= MAX_AREA) {
+        if (PlayAreaHelper.fitsGrid(currentWidth, currentHeight, currentWidth, newHeight)) {
           availableSpaces.push({ type: LocationType.PlayArea, x: above.x, y: above.y, z: 0 })
         }
       }

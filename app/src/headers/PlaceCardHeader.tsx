@@ -6,6 +6,7 @@ import { CustomMoveType } from '@gamepark/moonlight/rules/CustomMoveType'
 import { AlphaPowerHelper } from '@gamepark/moonlight/rules/helper/AlphaPowerHelper'
 import { PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { Trans } from 'react-i18next'
+import { headerButtonCss } from './headerButtonCss'
 
 export const PlaceCardHeader = () => {
   const rules = useRules<MoonlightRules>()!
@@ -23,7 +24,7 @@ export const PlaceCardHeader = () => {
       i18nKey={isMe ? 'header.place-card.move-pile.me' : 'header.place-card.move-pile'}
       values={{ player: name }}
       components={{
-        button: <PlayMoveButton move={isMe ? rules.customMove(CustomMoveType.ActivateMovePile) : undefined} />
+        button: <PlayMoveButton css={headerButtonCss} move={isMe ? rules.customMove(CustomMoveType.ActivateMovePile) : undefined} />
       }}
     />
   }

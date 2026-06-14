@@ -2,6 +2,7 @@ import { MoonlightRules } from '@gamepark/moonlight/MoonlightRules'
 import { CustomMoveType } from '@gamepark/moonlight/rules/CustomMoveType'
 import { PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { Trans } from 'react-i18next'
+import { headerButtonCss } from './headerButtonCss'
 
 export const PlaceSecondCardHeader = () => {
   const rules = useRules<MoonlightRules>()!
@@ -13,7 +14,7 @@ export const PlaceSecondCardHeader = () => {
     i18nKey={isMe ? 'header.place-second-card.me' : 'header.place-second-card'}
     values={{ player: name }}
     components={{
-      pass: <PlayMoveButton move={isMe ? rules.customMove(CustomMoveType.Pass) : undefined} auto={5} />
+      pass: <PlayMoveButton css={headerButtonCss} move={isMe ? rules.customMove(CustomMoveType.Pass) : undefined} auto={5} />
     }}
   />
 }

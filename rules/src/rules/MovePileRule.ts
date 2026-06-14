@@ -23,7 +23,6 @@ export class MovePileRule extends PlayerTurnRule {
     const helper = new PlayAreaHelper(this.game)
     const topCards = helper.getTopCards()
     const allCards = helper.playArea.getItems()
-    const { MAX_SIZE } = PlayAreaHelper
 
     // Occupied positions
     const occupied = new Set<string>()
@@ -75,14 +74,12 @@ export class MovePileRule extends PlayerTurnRule {
 
         const [dx, dy] = destKey.split(',').map(Number)
 
-        // Check grid size with pile at new position
-        const newXMin = Math.min(oxMin, dx)
-        const newXMax = Math.max(oxMax, dx)
-        const newYMin = Math.min(oyMin, dy)
-        const newYMax = Math.max(oyMax, dy)
-        const newWidth = newXMax - newXMin + 1
-        const newHeight = newYMax - newYMin + 1
-        if (newWidth > MAX_SIZE || newHeight > MAX_SIZE) continue
+        // Same size rule as card placement: grow one dimension at a time within limits.
+        const currentWidth = oxMax - oxMin + 1
+        const currentHeight = oyMax - oyMin + 1
+        const newWidth = Math.max(oxMax, dx) - Math.min(oxMin, dx) + 1
+        const newHeight = Math.max(oyMax, dy) - Math.min(oyMin, dy) + 1
+        if (!PlayAreaHelper.fitsGrid(currentWidth, currentHeight, newWidth, newHeight)) continue
 
         // Check destination is adjacent to at least one OTHER card
         const hasOtherNeighbor = otherCards.some(card =>
