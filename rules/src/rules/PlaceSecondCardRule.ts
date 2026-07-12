@@ -8,6 +8,15 @@ import { PlayAreaHelper } from './helper/PlayAreaHelper'
 import { RuleId } from './RuleId'
 
 export class PlaceSecondCardRule extends PlayerTurnRule {
+  onRuleStart() {
+    // No card left to place (or no space): skip the second placement entirely
+    const helper = new PlayAreaHelper(this.game)
+    if (helper.getPlacementMoves(this.hand, this.player, helper.availableSpaces()).length === 0) {
+      return [this.startRule(RuleId.DrawCard)]
+    }
+    return []
+  }
+
   getPlayerMoves() {
     const helper = new PlayAreaHelper(this.game)
     const moves = helper.getPlacementMoves(this.hand, this.player, helper.availableSpaces())
