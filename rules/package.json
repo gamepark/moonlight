@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/moonlight",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The rules of Moonlight adapted for Game Park",
   "sideEffects": false,
   "type": "module",
