@@ -1,3 +1,3 @@
 export { MoonlightRules } from './MoonlightRules'
-export { MoonlightOptionsSpec } from './MoonlightOptions'
+export { MoonlightOptionsSpecV2 } from './MoonlightOptions'
 export { MoonlightSetup } from './MoonlightSetup'

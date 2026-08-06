@@ -1,4 +1,4 @@
-import { MoonlightOptionsSpec } from '@gamepark/moonlight/MoonlightOptions'
+import { MoonlightOptionsSpecV2 } from '@gamepark/moonlight/MoonlightOptions'
 import { MoonlightRules } from '@gamepark/moonlight/MoonlightRules'
 import { MoonlightSetup } from '@gamepark/moonlight/MoonlightSetup'
 import { GameProvider } from '@gamepark/react-game'
@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
     <GameProvider
       game="moonlight"
       Rules={MoonlightRules}
-      optionsSpec={MoonlightOptionsSpec}
+      optionsSpec={MoonlightOptionsSpecV2}
       GameSetup={MoonlightSetup}
       material={Material}
       materialI18n={materialI18n}
