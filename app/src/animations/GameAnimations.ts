@@ -45,7 +45,8 @@ gameAnimations
   .configure(and(isRule(RuleId.PrepareRound), isMoveItemType(MaterialType.WolfCard)))
   .duration(300)
 
+// Beat between the last card of the round and the results panel, for spectators only.
 gameAnimations
-.configure((move, context) => isStartSimultaneousRule(move) && move.id === RuleId.ViewRoundResults && context.player === undefined)
-.postMove()
-.duration(0.2)
+  .configure((move, context) => isStartSimultaneousRule(move) && move.id === RuleId.ViewRoundResults && context.player === undefined)
+  .postMove()
+  .duration(200)
